@@ -7,6 +7,7 @@ const Footer = () => {
     { name: "Blog", path: "/blog" },
     { name: "About Us", path: "/about" },
     { name: "Contact", path: "/contact" },
+    { name: "Pitch Deck Creator", path: "/pitch-deck" },
   ];
 
   const dashboards = [
