@@ -15,6 +15,7 @@ import Startups from "./pages/Startups";
 import Jobs from "./pages/Jobs";
 import Contact from "./pages/Contact";
 import PitchDeck from "./pages/PitchDeck";
+import PitchDeckWizard from "./pages/PitchDeckWizard";
 import Dashboard from "./pages/Dashboard";
 import DashboardEvents from "./pages/DashboardEvents";
 import DashboardSettings from "./pages/DashboardSettings";
@@ -42,6 +43,7 @@ const App = () => (
               <Route path="/jobs" element={<Jobs />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/pitch-deck" element={<PitchDeck />} />
+              <Route path="/pitch-deck-wizard" element={<PitchDeckWizard />} />
               
               {/* Dashboard Routes */}
               <Route path="/dashboard" element={<Dashboard />} />
