@@ -15,6 +15,9 @@ import Startups from "./pages/Startups";
 import Jobs from "./pages/Jobs";
 import Contact from "./pages/Contact";
 import PitchDeck from "./pages/PitchDeck";
+import Dashboard from "./pages/Dashboard";
+import DashboardEvents from "./pages/DashboardEvents";
+import DashboardSettings from "./pages/DashboardSettings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,6 +42,12 @@ const App = () => (
               <Route path="/jobs" element={<Jobs />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/pitch-deck" element={<PitchDeck />} />
+              
+              {/* Dashboard Routes */}
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/dashboard/events" element={<DashboardEvents />} />
+              <Route path="/dashboard/settings" element={<DashboardSettings />} />
+              
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

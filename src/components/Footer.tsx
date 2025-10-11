@@ -12,9 +12,10 @@ const Footer = () => {
 
   const dashboards = [
     { name: "My Dashboard", path: "/dashboard" },
-    { name: "Jobs Dashboard", path: "/dashboard/jobs" },
-    { name: "Perks Dashboard", path: "/dashboard/perks" },
-    { name: "Events Dashboard", path: "/dashboard/events" },
+    { name: "My Events", path: "/dashboard/events" },
+    { name: "Jobs Board", path: "/dashboard/jobs" },
+    { name: "Perks", path: "/dashboard/perks" },
+    { name: "Settings", path: "/dashboard/settings" },
   ];
 
   const community = [
