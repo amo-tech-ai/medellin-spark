@@ -17,31 +17,50 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 9%;
 
-    --primary: 14 82% 60%;
-    --primary-foreground: 0 0% 100%;
+    /* Soft coral/dusty rose - sophisticated alternative to bright orange */
+    --primary: 0 56% 77%;
+    --primary-foreground: 0 0% 9%;
+    
+    /* Warm peachy coral for hover states */
+    --primary-hover: 10 65% 73%;
 
-    --secondary: 0 0% 98%;
+    /* Soft sage green background */
+    --secondary: 165 18% 90%;
     --secondary-foreground: 0 0% 9%;
 
-    --muted: 0 0% 96%;
+    /* Light neutral grey */
+    --muted: 30 10% 95%;
     --muted-foreground: 0 0% 46%;
 
-    --accent: 14 82% 60%;
-    --accent-foreground: 0 0% 100%;
+    /* Soft blue accent for highlights */
+    --accent: 195 28% 78%;
+    --accent-foreground: 0 0% 9%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 65% 70%;
+    --destructive-foreground: 0 0% 9%;
+    
+    /* Success state - soft green */
+    --success: 145 40% 70%;
+    --success-foreground: 0 0% 9%;
+    
+    /* Warning state - soft amber */
+    --warning: 35 80% 75%;
+    --warning-foreground: 0 0% 9%;
 
-    --border: 0 0% 91%;
-    --input: 0 0% 91%;
-    --ring: 14 82% 60%;
+    --border: 30 8% 88%;
+    --input: 30 8% 88%;
+    --ring: 0 56% 77%;
 
     --radius: 0.75rem;
 
-    --gradient-orange: linear-gradient(135deg, hsl(14, 82%, 60%), hsl(14, 90%, 65%));
-    --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.05);
-    --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.08);
-    --shadow-glow: 0 12px 40px rgba(242, 96, 60, 0.15);
+    /* Updated gradients with softer tones */
+    --gradient-primary: linear-gradient(135deg, hsl(0, 56%, 77%), hsl(10, 65%, 73%));
+    --gradient-accent: linear-gradient(135deg, hsl(195, 28%, 78%), hsl(165, 18%, 85%));
+    --gradient-warm: linear-gradient(135deg, hsl(25, 60%, 85%), hsl(35, 70%, 88%));
+    
+    --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.06);
+    --shadow-glow: 0 12px 40px rgba(232, 162, 162, 0.2);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
@@ -64,24 +83,35 @@ All colors MUST be HSL.
     --popover: 0 0% 12%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 14 82% 60%;
-    --primary-foreground: 0 0% 100%;
+    /* Slightly deeper coral for dark mode */
+    --primary: 0 56% 70%;
+    --primary-foreground: 0 0% 9%;
+    
+    --primary-hover: 10 65% 68%;
 
-    --secondary: 0 0% 15%;
+    /* Muted sage for dark mode */
+    --secondary: 165 15% 20%;
     --secondary-foreground: 0 0% 98%;
 
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 64%;
 
-    --accent: 14 82% 60%;
-    --accent-foreground: 0 0% 100%;
+    /* Soft blue accent for dark mode */
+    --accent: 195 25% 45%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 62% 50%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 62% 55%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --success: 145 35% 50%;
+    --success-foreground: 0 0% 98%;
+    
+    --warning: 35 75% 60%;
+    --warning-foreground: 0 0% 9%;
 
     --border: 0 0% 20%;
     --input: 0 0% 20%;
-    --ring: 14 82% 60%;
+    --ring: 0 56% 70%;
     
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -129,8 +159,16 @@ All colors MUST be HSL.
     text-wrap: balance;
   }
 
-  .gradient-orange {
-    background: var(--gradient-orange);
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+  
+  .gradient-warm {
+    background: var(--gradient-warm);
   }
 
   .shadow-soft {
