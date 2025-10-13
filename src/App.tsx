@@ -14,6 +14,7 @@ import Blog from "./pages/Blog";
 import Startups from "./pages/Startups";
 import StartupProfile from "./pages/StartupProfile";
 import SkillsExperience from "./pages/SkillsExperience";
+import Founders from "./pages/Founders";
 import Jobs from "./pages/Jobs";
 import Contact from "./pages/Contact";
 import PitchDeck from "./pages/PitchDeck";
@@ -42,6 +43,7 @@ const App = () => (
               <Route path="/programs" element={<Programs />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/startups" element={<Startups />} />
+              <Route path="/founders" element={<Founders />} />
               <Route path="/startup-profile" element={<StartupProfile />} />
               <Route path="/skills-experience" element={<SkillsExperience />} />
               <Route path="/jobs" element={<Jobs />} />

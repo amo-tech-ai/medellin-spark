@@ -3,6 +3,8 @@ import { Github, Linkedin, Twitter } from "lucide-react";
 
 const Footer = () => {
   const quickLinks = [
+    { name: "Founders", path: "/founders" },
+    { name: "Startups", path: "/startups" },
     { name: "Events", path: "/events" },
     { name: "Perks & Deals", path: "/perks" },
     { name: "Blog", path: "/blog" },

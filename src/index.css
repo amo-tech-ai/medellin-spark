@@ -48,6 +48,11 @@ All colors MUST be HSL.
     /* Warning state - soft amber */
     --warning: 35 80% 65%;
     --warning-foreground: 0 0% 12%;
+    
+    /* CTA Accent - Warm Amber for primary actions */
+    --cta-accent: 38 92% 55%;
+    --cta-accent-hover: 38 92% 48%;
+    --cta-accent-foreground: 0 0% 100%;
 
     --border: 200 13% 90%;
     --input: 200 13% 90%;
@@ -111,6 +116,11 @@ All colors MUST be HSL.
     
     --warning: 35 75% 60%;
     --warning-foreground: 0 0% 9%;
+    
+    /* CTA Accent - Dark mode */
+    --cta-accent: 38 88% 58%;
+    --cta-accent-hover: 38 88% 52%;
+    --cta-accent-foreground: 0 0% 100%;
 
     --border: 0 0% 20%;
     --input: 0 0% 20%;
@@ -201,5 +211,51 @@ All colors MUST be HSL.
 
   .transition-smooth {
     transition: var(--transition-smooth);
+  }
+  
+  /* Interactive hover effects */
+  .hover-lift {
+    @apply transition-smooth;
+  }
+  
+  .hover-lift:hover {
+    @apply -translate-y-2 shadow-card-hover;
+  }
+  
+  /* Form layouts */
+  .form-field {
+    @apply flex flex-col gap-2;
+  }
+  
+  .form-label {
+    @apply text-sm font-medium text-foreground;
+  }
+  
+  .form-input {
+    @apply h-12 px-4 rounded-lg border border-input bg-background text-foreground transition-smooth;
+    @apply focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20;
+  }
+  
+  .form-helper {
+    @apply text-sm text-muted-foreground;
+  }
+  
+  /* Image utilities */
+  .aspect-profile {
+    @apply aspect-square object-cover;
+  }
+  
+  .aspect-banner {
+    aspect-ratio: 16 / 9;
+    @apply object-cover;
+  }
+  
+  /* Card utilities */
+  .card-interactive {
+    @apply transition-smooth cursor-pointer;
+  }
+  
+  .card-interactive:hover {
+    @apply -translate-y-2 shadow-card-hover border-primary/50;
   }
 }
