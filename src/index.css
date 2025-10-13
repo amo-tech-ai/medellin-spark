@@ -24,8 +24,8 @@ All colors MUST be HSL.
     /* Warm peachy coral for hover states */
     --primary-hover: 10 65% 73%;
 
-    /* Soft sage green background */
-    --secondary: 165 18% 90%;
+    /* Soft blue-grey background - pastel neutral */
+    --secondary: 197 28% 90%;
     --secondary-foreground: 0 0% 9%;
 
     /* Light neutral grey */
@@ -89,8 +89,8 @@ All colors MUST be HSL.
     
     --primary-hover: 10 65% 68%;
 
-    /* Muted sage for dark mode */
-    --secondary: 165 15% 20%;
+    /* Cool blue-grey for dark mode */
+    --secondary: 197 20% 22%;
     --secondary-foreground: 0 0% 98%;
 
     --muted: 0 0% 15%;

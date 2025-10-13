@@ -23,11 +23,11 @@ The color scheme has been updated from bright orange to an elegant, sophisticate
 
 ## Secondary & Accent Colors
 
-### Soft Sage Green
-- **Light Mode:** `hsl(165, 18%, 90%)` - #E2EEE9
-- **Dark Mode:** `hsl(165, 15%, 20%)`
+### Soft Blue-Grey (Pastel Neutral)
+- **Light Mode:** `hsl(197, 28%, 90%)` - #DAE7EB
+- **Dark Mode:** `hsl(197, 20%, 22%)`
 - **Usage:** Secondary backgrounds, cards, subtle highlights
-- **Why:** Provides calming contrast to coral, evokes innovation and growth
+- **Why:** Cool-toned pastel grey provides sophisticated contrast to warm coral, creates modern, airy aesthetic inspired by Summer Storm palette
 
 ### Soft Blue
 - **Light Mode:** `hsl(195, 28%, 78%)` - #B5D7E3
@@ -145,7 +145,7 @@ All colors are defined as CSS custom properties in `src/index.css`:
 ```css
 /* Light Mode */
 --primary: 0 56% 77%;          /* Soft coral */
---secondary: 165 18% 90%;       /* Sage green */
+--secondary: 197 28% 90%;       /* Blue-grey */
 --accent: 195 28% 78%;          /* Soft blue */
 
 /* Use in Tailwind */
