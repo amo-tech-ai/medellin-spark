@@ -8,14 +8,14 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Soft Intelligence Blue-Grey Palette */
-    --background: 200 25% 97%;
+    /* Soft Intelligence Blue-Grey Palette - Refined */
+    --background: 0 0% 100%;
     --foreground: 0 0% 12%;
 
-    --card: 195 15% 95%;
+    --card: 200 20% 98%;
     --card-foreground: 0 0% 12%;
 
-    --popover: 195 15% 95%;
+    --popover: 200 20% 98%;
     --popover-foreground: 0 0% 12%;
 
     /* Main brand color - calm blue */
@@ -24,13 +24,14 @@ All colors MUST be HSL.
     
     /* Hover states */
     --primary-hover: 197 28% 62%;
+    --primary-dark: 197 28% 57%;
 
     /* Surface/card backgrounds */
-    --secondary: 193 18% 93%;
+    --secondary: 200 25% 97%;
     --secondary-foreground: 0 0% 12%;
 
     /* Subtle highlights */
-    --muted: 175 35% 94%;
+    --muted: 200 25% 97%;
     --muted-foreground: 212 8% 45%;
 
     /* Accent for links and highlights */
@@ -48,8 +49,8 @@ All colors MUST be HSL.
     --warning: 35 80% 65%;
     --warning-foreground: 0 0% 12%;
 
-    --border: 210 13% 91%;
-    --input: 210 13% 91%;
+    --border: 200 13% 90%;
+    --input: 200 13% 90%;
     --ring: 197 28% 69%;
 
     --radius: 0.5rem;
@@ -60,9 +61,9 @@ All colors MUST be HSL.
     --gradient-cta: linear-gradient(135deg, hsl(197, 20%, 78%), hsl(197, 28%, 69%));
     
     --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.04);
-    --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.06);
+    --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04);
     --shadow-card-hover: 0 6px 16px rgba(0, 0, 0, 0.08);
-    --shadow-glow: 0 12px 40px rgba(154, 184, 196, 0.15);
+    --shadow-glow: 0 8px 24px rgba(154, 186, 198, 0.25);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
