@@ -8,59 +8,61 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 9%;
+    /* Soft Intelligence Blue-Grey Palette */
+    --background: 200 25% 97%;
+    --foreground: 0 0% 12%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 9%;
+    --card: 195 15% 95%;
+    --card-foreground: 0 0% 12%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 9%;
+    --popover: 195 15% 95%;
+    --popover-foreground: 0 0% 12%;
 
-    /* Soft coral/dusty rose - sophisticated alternative to bright orange */
-    --primary: 0 56% 77%;
-    --primary-foreground: 0 0% 9%;
+    /* Main brand color - calm blue */
+    --primary: 197 28% 69%;
+    --primary-foreground: 0 0% 100%;
     
-    /* Warm peachy coral for hover states */
-    --primary-hover: 10 65% 73%;
+    /* Hover states */
+    --primary-hover: 197 28% 62%;
 
-    /* Soft blue-grey background - pastel neutral */
-    --secondary: 197 28% 90%;
-    --secondary-foreground: 0 0% 9%;
+    /* Surface/card backgrounds */
+    --secondary: 193 18% 93%;
+    --secondary-foreground: 0 0% 12%;
 
-    /* Light neutral grey */
-    --muted: 30 10% 95%;
-    --muted-foreground: 0 0% 46%;
+    /* Subtle highlights */
+    --muted: 175 35% 94%;
+    --muted-foreground: 212 8% 45%;
 
-    /* Soft blue accent for highlights */
-    --accent: 195 28% 78%;
-    --accent-foreground: 0 0% 9%;
+    /* Accent for links and highlights */
+    --accent: 197 28% 78%;
+    --accent-foreground: 0 0% 12%;
 
-    --destructive: 0 65% 70%;
-    --destructive-foreground: 0 0% 9%;
+    --destructive: 0 65% 55%;
+    --destructive-foreground: 0 0% 100%;
     
     /* Success state - soft green */
-    --success: 145 40% 70%;
-    --success-foreground: 0 0% 9%;
+    --success: 145 40% 60%;
+    --success-foreground: 0 0% 100%;
     
     /* Warning state - soft amber */
-    --warning: 35 80% 75%;
-    --warning-foreground: 0 0% 9%;
+    --warning: 35 80% 65%;
+    --warning-foreground: 0 0% 12%;
 
-    --border: 30 8% 88%;
-    --input: 30 8% 88%;
-    --ring: 0 56% 77%;
+    --border: 210 13% 91%;
+    --input: 210 13% 91%;
+    --ring: 197 28% 69%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
-    /* Updated gradients with softer tones */
-    --gradient-primary: linear-gradient(135deg, hsl(0, 56%, 77%), hsl(10, 65%, 73%));
-    --gradient-accent: linear-gradient(135deg, hsl(195, 28%, 78%), hsl(165, 18%, 85%));
-    --gradient-warm: linear-gradient(135deg, hsl(25, 60%, 85%), hsl(35, 70%, 88%));
+    /* Soft Intelligence gradients */
+    --gradient-primary: linear-gradient(90deg, hsl(197, 28%, 69%), hsl(197, 28%, 62%));
+    --gradient-hero: linear-gradient(135deg, hsl(197, 24%, 75%), hsl(197, 28%, 69%));
+    --gradient-cta: linear-gradient(135deg, hsl(197, 20%, 78%), hsl(197, 28%, 69%));
     
     --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.04);
     --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.06);
-    --shadow-glow: 0 12px 40px rgba(232, 162, 162, 0.2);
+    --shadow-card-hover: 0 6px 16px rgba(0, 0, 0, 0.08);
+    --shadow-glow: 0 12px 40px rgba(154, 184, 196, 0.15);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
@@ -83,21 +85,21 @@ All colors MUST be HSL.
     --popover: 0 0% 12%;
     --popover-foreground: 0 0% 98%;
 
-    /* Slightly deeper coral for dark mode */
-    --primary: 0 56% 70%;
-    --primary-foreground: 0 0% 9%;
+    /* Dark mode blue-grey */
+    --primary: 197 28% 60%;
+    --primary-foreground: 0 0% 100%;
     
-    --primary-hover: 10 65% 68%;
+    --primary-hover: 197 28% 55%;
 
-    /* Cool blue-grey for dark mode */
-    --secondary: 197 20% 22%;
+    /* Dark mode surfaces */
+    --secondary: 197 15% 18%;
     --secondary-foreground: 0 0% 98%;
 
     --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 64%;
+    --muted-foreground: 212 8% 65%;
 
-    /* Soft blue accent for dark mode */
-    --accent: 195 25% 45%;
+    /* Dark mode accent */
+    --accent: 197 25% 50%;
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 62% 55%;
@@ -111,7 +113,7 @@ All colors MUST be HSL.
 
     --border: 0 0% 20%;
     --input: 0 0% 20%;
-    --ring: 0 56% 70%;
+    --ring: 197 28% 60%;
     
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -134,6 +136,8 @@ All colors MUST be HSL.
     font-family: 'Inter', sans-serif;
     font-size: 16px;
     line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -163,12 +167,19 @@ All colors MUST be HSL.
     background: var(--gradient-primary);
   }
   
-  .gradient-accent {
-    background: var(--gradient-accent);
+  .gradient-hero {
+    background: var(--gradient-hero);
   }
   
-  .gradient-warm {
-    background: var(--gradient-warm);
+  .gradient-cta {
+    background: var(--gradient-cta);
+  }
+  
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .shadow-soft {
@@ -177,6 +188,10 @@ All colors MUST be HSL.
 
   .shadow-card {
     box-shadow: var(--shadow-card);
+  }
+  
+  .shadow-card-hover {
+    box-shadow: var(--shadow-card-hover);
   }
 
   .shadow-glow {
