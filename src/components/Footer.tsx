@@ -8,8 +8,8 @@ const Footer = () => {
     { name: "Blog", path: "/blog" },
     { name: "About Us", path: "/about" },
     { name: "Contact", path: "/contact" },
+    { name: "Submit Startup", path: "/startup-profile" },
     { name: "Quick Pitch Deck", path: "/pitch-deck" },
-    { name: "Pitch Deck Wizard", path: "/pitch-deck-wizard" },
   ];
 
   const dashboards = [

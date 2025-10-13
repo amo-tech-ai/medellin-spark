@@ -12,6 +12,7 @@ import Perks from "./pages/Perks";
 import Programs from "./pages/Programs";
 import Blog from "./pages/Blog";
 import Startups from "./pages/Startups";
+import StartupProfile from "./pages/StartupProfile";
 import Jobs from "./pages/Jobs";
 import Contact from "./pages/Contact";
 import PitchDeck from "./pages/PitchDeck";
@@ -40,6 +41,7 @@ const App = () => (
               <Route path="/programs" element={<Programs />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/startups" element={<Startups />} />
+              <Route path="/startup-profile" element={<StartupProfile />} />
               <Route path="/jobs" element={<Jobs />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/pitch-deck" element={<PitchDeck />} />
