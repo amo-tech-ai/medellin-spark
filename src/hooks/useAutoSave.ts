@@ -28,13 +28,14 @@ export function useAutoSave({
       onSaveStart?.();
 
       try {
-        const { error } = await supabase
+        const client: any = supabase;
+        const { error } = await client
           .from('presentations')
           .update({
             ...updates,
             updated_at: new Date().toISOString(),
             last_edited_at: new Date().toISOString(),
-          } as any)
+          })
           .eq('id', presentationId);
 
         if (error) throw error;

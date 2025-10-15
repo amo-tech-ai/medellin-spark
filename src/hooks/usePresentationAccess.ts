@@ -18,7 +18,8 @@ export function usePresentationAccess(presentationId: string | undefined) {
       }
 
       try {
-        const { data, error } = await supabase
+        const client: any = supabase;
+        const { data, error } = await client
           .from('presentations')
           .select('profile_id')
           .eq('id', presentationId)
