@@ -22,9 +22,14 @@ export function usePresentationAccess(presentationId: string | undefined) {
           .from('presentations')
           .select('profile_id')
           .eq('id', presentationId)
-          .single();
+          .maybeSingle();
 
         if (error) throw error;
+        if (!data) {
+          toast.error('Presentation not found');
+          navigate('/presentations');
+          return;
+        }
 
         // Check if user owns this presentation
         const userHasAccess = data.profile_id === user.id;

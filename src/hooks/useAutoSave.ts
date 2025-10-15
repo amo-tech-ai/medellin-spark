@@ -34,7 +34,7 @@ export function useAutoSave({
             ...updates,
             updated_at: new Date().toISOString(),
             last_edited_at: new Date().toISOString(),
-          })
+          } as any)
           .eq('id', presentationId);
 
         if (error) throw error;
