@@ -19,6 +19,7 @@ const Footer = () => {
   const dashboards = [
     { name: "My Dashboard", path: "/dashboard" },
     { name: "My Events", path: "/dashboard/events" },
+    { name: "My Pitch Decks", path: "/dashboard/pitch-decks" },
     { name: "Jobs Board", path: "/dashboard/jobs" },
     { name: "Perks", path: "/dashboard/perks" },
     { name: "Settings", path: "/dashboard/settings" },

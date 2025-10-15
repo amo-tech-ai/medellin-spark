@@ -23,6 +23,7 @@ import Profile from "./pages/Profile";
 import Dashboard from "./pages/Dashboard";
 import DashboardEvents from "./pages/DashboardEvents";
 import DashboardSettings from "./pages/DashboardSettings";
+import DashboardPitchDecks from "./pages/DashboardPitchDecks";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -56,6 +57,7 @@ const App = () => (
               {/* Dashboard Routes */}
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/dashboard/events" element={<DashboardEvents />} />
+              <Route path="/dashboard/pitch-decks" element={<DashboardPitchDecks />} />
               <Route path="/dashboard/settings" element={<DashboardSettings />} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
