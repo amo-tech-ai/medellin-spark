@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Plus, Sparkles, Layout, FileText, BarChart3, MoreVertical, Search, Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -94,14 +95,12 @@ const mockTemplates: Template[] = [
 ];
 
 const DashboardPitchDecks = () => {
+  const navigate = useNavigate();
   const [presentations] = useState<Presentation[]>(mockPresentations);
   const [sortBy, setSortBy] = useState("recent");
 
   const handleCreateAI = () => {
-    toast({
-      title: "AI Generator",
-      description: "Opening AI presentation wizard...",
-    });
+    navigate("/pitch-deck-wizard");
   };
 
   const handleUseTemplate = (templateName: string) => {
@@ -109,13 +108,16 @@ const DashboardPitchDecks = () => {
       title: "Template Selected",
       description: `Creating presentation from "${templateName}"`,
     });
+    // Navigate to outline editor with template
+    navigate("/presentations/new-template/outline");
   };
 
-  const handleEdit = (title: string) => {
-    toast({
-      title: "Opening Editor",
-      description: `Editing "${title}"`,
-    });
+  const handleEdit = (presentationId: string) => {
+    navigate(`/presentations/${presentationId}/edit`);
+  };
+
+  const handleViewPresentation = (presentationId: string) => {
+    navigate(`/presentations/${presentationId}/view`);
   };
 
   const handleDuplicate = (title: string) => {
@@ -289,7 +291,7 @@ const DashboardPitchDecks = () => {
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                          <DropdownMenuItem onClick={() => handleEdit(presentation.title)}>
+                          <DropdownMenuItem onClick={() => handleEdit(presentation.id)}>
                             Edit
                           </DropdownMenuItem>
                           <DropdownMenuItem onClick={() => handleDuplicate(presentation.title)}>
@@ -311,8 +313,8 @@ const DashboardPitchDecks = () => {
                     </div>
                   </CardHeader>
                   <CardContent className="pt-0">
-                    <Button variant="outline" className="w-full" size="sm" onClick={() => handleEdit(presentation.title)}>
-                      Edit Deck
+                    <Button variant="outline" className="w-full" size="sm" onClick={() => handleViewPresentation(presentation.id)}>
+                      View Deck
                     </Button>
                   </CardContent>
                 </Card>

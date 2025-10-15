@@ -24,6 +24,9 @@ import Dashboard from "./pages/Dashboard";
 import DashboardEvents from "./pages/DashboardEvents";
 import DashboardSettings from "./pages/DashboardSettings";
 import DashboardPitchDecks from "./pages/DashboardPitchDecks";
+import OutlineEditor from "./pages/presentations/OutlineEditor";
+import SlideEditor from "./pages/presentations/SlideEditor";
+import PresentationViewer from "./pages/presentations/PresentationViewer";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -59,6 +62,11 @@ const App = () => (
               <Route path="/dashboard/events" element={<DashboardEvents />} />
               <Route path="/dashboard/pitch-decks" element={<DashboardPitchDecks />} />
               <Route path="/dashboard/settings" element={<DashboardSettings />} />
+              
+              {/* Presentation Editor Routes */}
+              <Route path="/presentations/:id/outline" element={<OutlineEditor />} />
+              <Route path="/presentations/:id/edit" element={<SlideEditor />} />
+              <Route path="/presentations/:id/view" element={<PresentationViewer />} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
