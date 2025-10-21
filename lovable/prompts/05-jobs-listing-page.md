@@ -1,382 +1,362 @@
-# Jobs Listing Page - Lovable Prompt
+# Jobs Listing Page - UI Design (Lovable)
 
-**Update the jobs listing page at `/jobs` to connect to database and add full functionality**
-
----
-
-## Current Issues to Fix
-
-The page exists but has problems:
-- ❌ Uses hardcoded mock data (not connected to database)
-- ❌ "Apply Now" button doesn't navigate to job detail page
-- ❌ Search doesn't actually filter jobs
-- ❌ Category filters don't work
-- ❌ No loading state while fetching data
-- ❌ No empty state when no jobs exist
-- ❌ Job cards aren't clickable
+**Create a beautiful jobs listing page at `/jobs` with clean UI and layout**
 
 ---
 
-## What Users Should See
+## What to Build
 
-A professional job board where users can:
-- Browse all available jobs
-- Search jobs by title, company, or skills
-- Filter jobs by category (Engineering, Product, Design, etc.)
-- Click any job card to see full details
-- See job type badges (Full-time, Remote, Contract)
-- See salary ranges and locations
-- View company information
+A professional job board page where users can browse job openings. Focus on creating beautiful, responsive UI with proper layout and components. Data connection will be added later.
 
 ---
 
-## Page Layout
+## Page Sections
 
-### Hero Section (Keep Current Design)
-- Background: Secondary color
-- Title: "Job Board"
+### 1. Hero Section
+
+**Visual Design:**
+- Background: Light secondary color (bg-secondary)
+- Height: Medium (py-16)
+- Content: Centered
+
+**Content:**
+- Large heading (h1): "Job Board"
 - Subtitle: "Find opportunities at AI startups and tech companies in Medellín"
-- Keep centered, clean design
-
-### Search Bar
-- Search icon on left
-- Placeholder: "Search by title, company, or skills..."
-- Real-time search as user types
-- Searches: job title, company name, skills
-
-### Filter Tabs (Horizontal Pills)
-Keep current filter design:
-- "All Jobs" (default active)
-- "Engineering"
-- "Product"
-- "Design"
-- "Marketing"
-- "Sales"
-
-Active filter highlighted with primary color
-
-### Jobs Grid
-- Each job as a card (current card design is good)
-- Cards should be clickable (entire card, not just button)
-- Hover effect: shadow grows, border changes to primary
-- Transition: smooth animation
-
-### Job Card Contents (Keep Current Layout)
-**Left Side:**
-- Job title (large, bold)
-- Company name (muted text)
-- Location with MapPin icon
-- Job type (Full-time/Part-time/Contract) with Briefcase icon
-- Salary range with DollarSign icon
-- Skills as badges (pill-shaped)
-- "Remote" badge if applicable (green/success color)
-
-**Right Side:**
-- "View Details" button (or "Apply Now")
-- Button should be outline style (not filled)
+- Text color: Muted for subtitle
 
 ---
 
-## Database Integration
+### 2. Search & Filter Section
 
-### Connect to Supabase
+**Container:**
+- Full width with container padding
+- Vertical spacing: py-8
 
-Get jobs from the `jobs` table with these fields:
-- title
-- company_id (join with companies table for company name)
-- location
-- type (enum: full-time, part-time, contract, internship)
-- salary_min, salary_max, salary_currency
-- remote_allowed (boolean)
-- status (only show if status = 'published')
-- created_at (for "posted X days ago")
-- category (engineering, product, design, marketing, sales)
+**Search Bar:**
+- Max width: md (max-w-md)
+- Search icon on left (lucide-react Search)
+- Input placeholder: "Search by title, company, or skills..."
+- Styling: Input from shadcn/ui
 
-**Join with:**
-- `companies` table to get: company name, logo_url
+**Filter Pills (Below Search):**
+- Horizontal row of filter buttons
+- Pills: "All Jobs", "Engineering", "Product", "Design", "Marketing", "Sales"
+- Active pill: Primary color background
+- Inactive pills: Default background, border
+- Spacing: gap-2 between pills
+- Component: Button with variant="outline" or variant="default" for active
 
-**Example Query Pattern:**
+**Visual Layout:**
 ```
-Select jobs with:
-- All job fields
-- Company name from companies table
-- Where status = 'published'
-- Order by created_at DESC
+┌─────────────────────────────────────┐
+│  [🔍 Search by title...]            │
+└─────────────────────────────────────┘
+
+[All Jobs] [Engineering] [Product] [Design]...
 ```
 
 ---
 
-## Functionality
+### 3. Jobs Grid Section
 
-### Page Load
-1. Show loading skeleton (shimmer cards)
-2. Fetch all published jobs from database
-3. Display jobs in cards
-4. If no jobs found, show empty state
+**Container:**
+- Max width: 4xl (max-w-4xl)
+- Centered
+- Vertical stack of job cards
+- Spacing: space-y-4 between cards
 
-### Search Functionality
-- User types in search box
-- Filter jobs that match:
-  - Job title (case insensitive)
-  - Company name (case insensitive)
-  - Any skill in job's skills array
-- Update displayed jobs in real-time
-- Show count: "Showing X jobs" or "No jobs match 'keyword'"
+**Job Cards (Use mock data for 3-5 jobs):**
 
-### Filter by Category
-- Click a category filter (Engineering, Product, etc.)
-- Filter jobs where job.category matches selected filter
-- "All Jobs" shows everything (no filter)
-- Active filter gets primary color styling
-- Combine with search (search + filter both apply)
+Each card is a clickable container:
+- Component: Card from shadcn/ui
+- Border: 1px solid border color
+- Rounded: rounded-xl
+- Padding: p-6
+- Shadow: shadow-card
+- Hover: shadow-glow, border-primary
+- Transition: transition-smooth
 
-### Click Job Card
-- Entire card is clickable
-- Navigate to `/jobs/[job-id]`
-- Cursor changes to pointer on hover
-- Card hover: shadow increases, border highlights
+**Card Layout (Flex):**
+```
+┌──────────────────────────────────────────────────────────┐
+│  Senior AI Engineer                    [Apply Now]       │
+│  TechCorp AI                                             │
+│                                                          │
+│  📍 Medellín, Colombia  💼 Full-time  💰 $80K - $120K   │
+│                                                          │
+│  [Python] [TensorFlow] [AWS] [Remote]                   │
+└──────────────────────────────────────────────────────────┘
+```
 
-### "View Details" / "Apply Now" Button
-- Click navigates to `/jobs/:id` detail page
-- Prevent event propagation (so clicking button = clicking card)
+**Card Content (Left Side):**
+1. **Job Title**
+   - Text: text-xl font-semibold
+   - Example: "Senior AI Engineer"
+
+2. **Company Name**
+   - Text: text-muted-foreground
+   - Margin: mb-3
+   - Example: "TechCorp AI"
+
+3. **Job Details Row**
+   - Flex container: flex gap-4
+   - Text: text-sm text-muted-foreground
+   - Icons: lucide-react (size 16)
+
+   Items:
+   - 📍 Location: MapPin icon + "Medellín, Colombia"
+   - 💼 Job Type: Briefcase icon + "Full-time"
+   - 💰 Salary: DollarSign icon + "$80K - $120K"
+
+4. **Skills Badges**
+   - Flex wrap: flex flex-wrap gap-2
+   - Component: Badge from shadcn/ui (or custom pill)
+   - Variant: default (gray) for skills
+   - Variant: success (green) for "Remote" badge
+   - Examples: "Python", "TensorFlow", "AWS", "Remote"
+
+**Card Content (Right Side):**
+- Button: "Apply Now"
+- Variant: default (primary color)
+- Size: Default
+- Desktop: Fixed width
+- Mobile: Full width
+
+---
+
+## Mock Data to Display
+
+Show 3-5 sample job cards with this data:
+
+**Job 1:**
+- Title: "Senior AI Engineer"
+- Company: "TechCorp AI"
+- Location: "Medellín, Colombia"
+- Type: "Full-time"
+- Salary: "$80K - $120K"
+- Remote: Yes
+- Skills: Python, TensorFlow, AWS
+
+**Job 2:**
+- Title: "Machine Learning Engineer"
+- Company: "DataStart"
+- Location: "Remote"
+- Type: "Full-time"
+- Salary: "$70K - $100K"
+- Remote: Yes
+- Skills: Python, PyTorch, Docker
+
+**Job 3:**
+- Title: "Frontend Developer"
+- Company: "UILabs"
+- Location: "Medellín, Colombia"
+- Type: "Contract"
+- Salary: "$50K - $80K"
+- Remote: No
+- Skills: React, TypeScript, Tailwind
+
+**Job 4 (Optional):**
+- Title: "Product Manager"
+- Company: "InnovateCo"
+- Location: "Bogotá, Colombia"
+- Type: "Full-time"
+- Salary: "Competitive"
+- Remote: Yes
+- Skills: Product Strategy, Analytics, Agile
+
+**Job 5 (Optional):**
+- Title: "UX Designer"
+- Company: "CreativeStudio"
+- Location: "Medellín, Colombia"
+- Type: "Part-time"
+- Salary: "$40K - $60K"
+- Remote: No
+- Skills: Figma, User Research, Prototyping
 
 ---
 
 ## Responsive Design
 
-### Desktop (large screens)
-- Cards: max-width 800px, centered
-- 1 column of cards
-- Search and filters: horizontal layout
+### Desktop (lg and above)
+- Hero: Full width, centered text
+- Search: Max width md, aligned left
+- Filters: Horizontal row
+- Cards: Max width 4xl, centered
+- Card layout: Flex row (content left, button right)
 
-### Tablet (medium screens)
-- Cards: full width with padding
-- Search and filters: stack vertically
-- Larger touch targets
+### Tablet (md)
+- Hero: Same as desktop
+- Search: Full width with padding
+- Filters: May wrap to multiple rows
+- Cards: Full width with padding
+- Card layout: Flex row
 
-### Mobile (small screens)
-- Cards: full width, stack vertically
-- Details (location, type, salary) wrap to multiple rows
-- Button: full width at bottom of card
-- Filters: horizontal scroll if needed
-
----
-
-## Loading State
-
-While fetching jobs from database:
-- Show 3-5 skeleton cards
-- Shimmer animation
-- Same size/shape as real job cards
-- Pulse effect
-
-**Skeleton card should have:**
-- Gray rectangle for title (width: 60%)
-- Gray rectangle for company (width: 40%)
-- Gray circles for icons + text
-- Gray pills for skills
+### Mobile (sm and below)
+- Hero: Smaller padding
+- Search: Full width
+- Filters: Horizontal scroll OR stack vertically
+- Cards: Full width
+- Card layout: Stack vertically (content on top, button on bottom)
+- Button: Full width (w-full)
+- Details row: May wrap to multiple lines
 
 ---
 
-## Empty States
+## Components to Use
 
-### No Jobs in Database
-- Icon: BriefcaseX or SearchX
+### From shadcn/ui:
+- `Card` - For job cards
+- `Button` - For "Apply Now" and filters
+- `Input` - For search box
+- `Badge` - For skill pills
+- `Separator` - Optional between sections
+
+### From lucide-react:
+- `Search` - Search icon
+- `MapPin` - Location icon
+- `Briefcase` - Job type icon
+- `DollarSign` - Salary icon
+
+### Custom Styling:
+- Use existing color scheme (primary, secondary, muted)
+- Consistent spacing (p-4, p-6, gap-4)
+- Shadows: shadow-card, shadow-glow
+- Transitions: transition-smooth
+
+---
+
+## Visual Hierarchy
+
+**Priority order (largest to smallest):**
+1. Hero heading (h1)
+2. Job titles (text-xl)
+3. Search bar (medium size)
+4. Filter pills (medium size)
+5. Company names (text-base)
+6. Job details (text-sm)
+7. Skills badges (text-xs)
+
+**Color hierarchy:**
+- Primary: Hero heading, active filter, button
+- Default: Job titles
+- Muted: Company names, job details
+- Success: "Remote" badge
+- Border: Card borders
+
+---
+
+## Spacing & Layout
+
+**Section Spacing:**
+- Hero: py-16
+- Search & Filters: py-8
+- Jobs grid: pb-16
+
+**Card Spacing:**
+- Padding: p-6
+- Gap between elements: gap-4
+- Space between cards: space-y-4
+
+**Element Spacing:**
+- Title to company: mb-2
+- Company to details: mb-3
+- Details to skills: mb-3
+
+---
+
+## Interactive Elements (Visual Only)
+
+### Search Input
+- Border changes on focus
+- Placeholder text visible
+- Search icon stays fixed on left
+
+### Filter Pills
+- Hover: Slight background change
+- Active: Primary color background + white text
+- Inactive: Border + default background
+- Smooth transition between states
+
+### Job Cards
+- Hover: Shadow increases, border highlights
+- Cursor: pointer
+- Transition: All 0.2s ease
+
+### Apply Button
+- Hover: Darker background
+- Active: Slight scale down
+- Transition: smooth
+
+---
+
+## Empty State (Optional)
+
+If showing empty state:
+- Icon: Briefcase or SearchX
 - Message: "No jobs available yet"
 - Description: "Check back soon for new opportunities"
-- CTA button: "Post a Job" (optional)
-
-### No Search Results
-- Icon: SearchX
-- Message: "No jobs match your search"
-- Description: "Try different keywords or clear filters"
-- Button: "Clear Search" (clears search and filters)
-
-### No Jobs in Category
-- Message: "No [category] jobs available"
-- Description: "Try another category or view all jobs"
-- Button: "View All Jobs" (resets to "all" filter)
+- Centered in grid area
 
 ---
 
-## Visual Design
+## Loading State (Optional)
 
-### Card Styling
-- Background: card color
-- Border: 1px solid border color
-- Border radius: 12px
-- Padding: 24px
-- Shadow: subtle card shadow
-- Hover shadow: larger glow effect
-- Hover border: primary color
-
-### Typography
-- Job title: text-xl, font-semibold
-- Company: text-muted-foreground
-- Details: text-sm, text-muted-foreground
-- Skills badges: text-xs
-
-### Badges
-- Pills with rounded corners
-- Skill badges: default variant (gray)
-- "Remote" badge: success variant (green)
-- Job type badge: secondary variant
-
-### Colors
-- Primary color for active filter
-- Muted for secondary text
-- Success green for "Remote"
-- Border color for cards
+Show 3 skeleton cards:
+- Same size as real cards
+- Gray rectangles with shimmer
+- Pulse animation
 
 ---
 
-## Interactive Behaviors
+## What NOT to Include
 
-### Hover Effects
-- Card: shadow increases, border highlights
-- Filter button: background changes slightly
-- Button: background color transition
+❌ Don't add database queries or Supabase code
+❌ Don't add state management for search/filters
+❌ Don't add navigation logic
+❌ Don't add form submission
+❌ Don't add authentication checks
 
-### Click Feedback
-- Card: slight scale down (0.98) on click
-- Button: ripple effect (optional)
-- Filter: smooth color transition
-
-### Transitions
-- All transitions: 0.2s ease
-- Smooth, not jarring
-- Professional feel
-
----
-
-## Data Handling
-
-### Skills Array
-If skills are stored as JSON array or text:
-- Parse skills array
-- Display each skill as badge
-- Limit to first 5 skills (+ "2 more" if needed)
-
-### Salary Display
-- If salary_min and salary_max exist:
-  - Show: "$80K - $120K USD"
-- If no salary disclosed:
-  - Show: "Competitive salary"
-- Use salary_currency (USD, COP, etc.)
-
-### Date Formatting
-- Show "Posted X days ago" using created_at
-- Examples: "Posted today", "Posted 3 days ago", "Posted 2 weeks ago"
-
-### Remote Badge
-- If remote_allowed = true, show "Remote" badge
-- Green/success color
-- Placed with skills badges
-
----
-
-## Performance
-
-### Optimization
-- Fetch jobs once on page load
-- Store in state (don't refetch on every filter/search)
-- Filter/search happens client-side (fast)
-- If 100+ jobs, add pagination (20 per page)
-
-### Pagination (Optional, if many jobs)
-- Show 20 jobs per page
-- "Load More" button at bottom
-- Or numbered pagination: 1, 2, 3...
-- Show: "Showing 1-20 of 45 jobs"
+Focus ONLY on:
+✅ Visual layout and spacing
+✅ Component structure
+✅ Responsive design
+✅ Mock data display
+✅ Hover and visual states
 
 ---
 
 ## Success Criteria
 
-Before marking complete:
-- [ ] Page loads jobs from Supabase `jobs` table
-- [ ] Jobs display with correct data (title, company, location, salary)
-- [ ] Search box filters jobs in real-time
-- [ ] Category filters work correctly
-- [ ] Clicking job card navigates to `/jobs/:id`
-- [ ] "Remote" badge shows for remote jobs
-- [ ] Skills display as badges
-- [ ] Loading state shows while fetching
-- [ ] Empty state shows if no jobs
-- [ ] Responsive on mobile/tablet/desktop
-- [ ] No TypeScript errors
-- [ ] No console errors
+Page should have:
+- [ ] Clean hero section with heading
+- [ ] Search input (visual only, doesn't filter yet)
+- [ ] Filter pills (visual only, don't filter yet)
+- [ ] 3-5 job cards displaying mock data
+- [ ] Proper card layout with all elements
+- [ ] Skills badges rendering correctly
+- [ ] "Remote" badge shows green when applicable
+- [ ] Responsive on mobile (cards stack)
+- [ ] Hover effects work on cards and buttons
+- [ ] Clean, professional design matching existing site
 
 ---
 
-## Testing
+## Design Notes
 
-**Test with real data:**
-1. Navigate to `/jobs`
-2. Should see loading skeleton briefly
-3. Jobs load from database
-4. Click a job card → Should go to `/jobs/[id]`
-5. Type in search box → Jobs filter instantly
-6. Click category filter → Jobs filter by category
-7. Test on mobile → Layout stacks correctly
+**Keep it simple and clean:**
+- Use whitespace generously
+- Consistent padding and margins
+- Clear visual hierarchy
+- Professional, not cluttered
 
-**Test edge cases:**
-1. No jobs in database → Show empty state
-2. Search with no results → Show "no results" message
-3. Remote job → Should show "Remote" badge
-4. Job with no salary → Should show "Competitive salary"
-
-**Test interactions:**
-1. Hover over card → Shadow/border changes
-2. Click filter → Active state updates
-3. Clear search → All jobs show again
+**Match existing design:**
+- Use same color scheme as rest of site
+- Same button styles as other pages
+- Same card styles as dashboard
+- Consistent typography
 
 ---
 
-## Code Quality
-
-### Use React Hooks
-- `useState` for search query, active filter, jobs data
-- `useEffect` to fetch jobs on mount
-- `useMemo` to memoize filtered jobs (performance)
-
-### Use Supabase Client
-```
-Import Supabase client
-Fetch jobs with company join
-Handle loading state
-Handle error state
-```
-
-### Navigation
-```
-Use React Router's useNavigate or Link
-Navigate to /jobs/:id on card click
-```
-
----
-
-## Additional Features (Optional)
-
-### Bookmarking
-- Heart icon to save job
-- Add to saved_jobs table
-- Show "Saved" badge if already saved
-
-### Application Count
-- Show "23 applicants" if tracking applications
-- From job_applications table count
-
-### Company Logo
-- Show company logo next to company name
-- Circular avatar, small size
-- Fallback to company initial if no logo
-
----
-
-**Priority:** TIER 1 - Critical for MVP
-**Estimated Time:** 2-3 hours
-**Dependencies:**
-- Events and Perks list pages should match this pattern
-- Job detail page should receive navigation from this page
-- Companies table must exist for company names
+**Priority:** TIER 1 - Critical
+**Time to Build UI:** 1-2 hours in Lovable
+**Next Step:** After UI is created, connect to Supabase (separate task)
