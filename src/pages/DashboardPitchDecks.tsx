@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { Plus, Sparkles, Layout, FileText, BarChart3, MoreVertical, Search, Filter } from "lucide-react";
+import { Plus, Sparkles, Layout, FileText, BarChart3, MoreVertical, Search, Filter, Loader2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -13,15 +13,9 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "@/hooks/use-toast";
-
-interface Presentation {
-  id: string;
-  title: string;
-  thumbnail: string;
-  lastEdited: string;
-  slides: number;
-  status: "draft" | "ready" | "presenting";
-}
+import { usePresentationsQuery, type Presentation as DBPresentation } from "@/hooks/usePresentationsQuery";
+import { useAuth } from "@/hooks/useAuth";
+import { formatDistanceToNow } from "date-fns";
 
 interface Template {
   id: string;
@@ -31,33 +25,6 @@ interface Template {
   category: string;
   isPremium: boolean;
 }
-
-const mockPresentations: Presentation[] = [
-  {
-    id: "1",
-    title: "Q1 Investor Pitch",
-    thumbnail: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=225&fit=crop",
-    lastEdited: "2 hours ago",
-    slides: 12,
-    status: "ready",
-  },
-  {
-    id: "2",
-    title: "Product Launch Deck",
-    thumbnail: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=225&fit=crop",
-    lastEdited: "Yesterday",
-    slides: 18,
-    status: "draft",
-  },
-  {
-    id: "3",
-    title: "Team All-Hands Sept",
-    thumbnail: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=225&fit=crop",
-    lastEdited: "3 days ago",
-    slides: 8,
-    status: "presenting",
-  },
-];
 
 const mockTemplates: Template[] = [
   {
@@ -96,8 +63,49 @@ const mockTemplates: Template[] = [
 
 const DashboardPitchDecks = () => {
   const navigate = useNavigate();
-  const [presentations] = useState<Presentation[]>(mockPresentations);
+  const { user } = useAuth();
+  const { data: presentations = [], isLoading, error } = usePresentationsQuery();
   const [sortBy, setSortBy] = useState("recent");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Filter and sort presentations
+  const filteredPresentations = useMemo(() => {
+    let filtered = presentations;
+
+    // Apply search filter
+    if (searchQuery) {
+      filtered = filtered.filter((p) =>
+        p.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    // Apply sorting
+    const sorted = [...filtered];
+    switch (sortBy) {
+      case "title":
+        sorted.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      case "slides":
+        sorted.sort((a, b) => (b.slide_count || 0) - (a.slide_count || 0));
+        break;
+      case "status":
+        sorted.sort((a, b) => (a.status || "").localeCompare(b.status || ""));
+        break;
+      case "recent":
+      default:
+        sorted.sort((a, b) => {
+          const aDate = new Date(a.updated_at || a.created_at || 0);
+          const bDate = new Date(b.updated_at || b.created_at || 0);
+          return bDate.getTime() - aDate.getTime();
+        });
+    }
+
+    return sorted;
+  }, [presentations, searchQuery, sortBy]);
+
+  // Get user's display name from email or profile
+  const userName = user?.email?.split("@")[0] || "there";
+  const capitalizedUserName = userName.charAt(0).toUpperCase() + userName.slice(1);
 
   const handleCreateAI = () => {
     navigate("/pitch-deck-wizard");
@@ -135,6 +143,32 @@ const DashboardPitchDecks = () => {
     });
   };
 
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-primary" />
+          <p className="text-muted-foreground">Loading your presentations...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <AlertCircle className="h-8 w-8 mx-auto mb-4 text-destructive" />
+          <p className="text-lg font-semibold mb-2">Error loading presentations</p>
+          <p className="text-muted-foreground mb-4">{error.message}</p>
+          <Button onClick={() => window.location.reload()}>Retry</Button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -142,9 +176,9 @@ const DashboardPitchDecks = () => {
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-foreground">Good morning, Sarah</h1>
+              <h1 className="text-3xl font-bold text-foreground">Good morning, {capitalizedUserName}</h1>
               <p className="text-muted-foreground mt-1">
-                {presentations.length} {presentations.length === 1 ? "deck" : "decks"} ready
+                {filteredPresentations.length} {filteredPresentations.length === 1 ? "deck" : "decks"} ready
               </p>
             </div>
             <Button className="gap-2" onClick={handleCreateAI}>
@@ -233,7 +267,12 @@ const DashboardPitchDecks = () => {
             <div className="flex items-center gap-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input placeholder="Search decks..." className="pl-9 w-64" />
+                <Input
+                  placeholder="Search decks..."
+                  className="pl-9 w-64"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
               </div>
               <Select value={sortBy} onValueChange={setSortBy}>
                 <SelectTrigger className="w-40">
@@ -250,75 +289,101 @@ const DashboardPitchDecks = () => {
             </div>
           </div>
 
-          {presentations.length === 0 ? (
+          {filteredPresentations.length === 0 ? (
             <Card className="py-16">
               <CardContent className="text-center">
                 <div className="h-16 w-16 rounded-full bg-secondary mx-auto mb-4 flex items-center justify-center">
                   <FileText className="h-8 w-8 text-muted-foreground" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">No presentations yet</h3>
-                <p className="text-muted-foreground mb-6">Create your first deck to get started</p>
-                <Button onClick={handleCreateAI}>
-                  <Plus className="h-4 w-4 mr-2" />
-                  Create First Deck
-                </Button>
+                <h3 className="text-xl font-semibold mb-2">
+                  {presentations.length === 0 ? "No presentations yet" : "No matching presentations"}
+                </h3>
+                <p className="text-muted-foreground mb-6">
+                  {presentations.length === 0
+                    ? "Create your first deck to get started"
+                    : "Try a different search term"}
+                </p>
+                {presentations.length === 0 && (
+                  <Button onClick={handleCreateAI}>
+                    <Plus className="h-4 w-4 mr-2" />
+                    Create First Deck
+                  </Button>
+                )}
               </CardContent>
             </Card>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {presentations.map((presentation) => (
-                <Card key={presentation.id} className="hover:shadow-lg transition-all duration-200 hover:scale-[1.02] overflow-hidden">
-                  <div className="aspect-video relative overflow-hidden bg-muted">
-                    <img
-                      src={presentation.thumbnail}
-                      alt={presentation.title}
-                      className="w-full h-full object-cover"
-                    />
-                    <Badge
-                      className="absolute top-2 right-2"
-                      variant={presentation.status === "ready" ? "default" : "secondary"}
-                    >
-                      {presentation.status}
-                    </Badge>
-                  </div>
-                  <CardHeader className="pb-3">
-                    <div className="flex items-start justify-between">
-                      <CardTitle className="text-base line-clamp-1">{presentation.title}</CardTitle>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="icon" className="h-8 w-8 -mr-2">
-                            <MoreVertical className="h-4 w-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem onClick={() => handleEdit(presentation.id)}>
-                            Edit
-                          </DropdownMenuItem>
-                          <DropdownMenuItem onClick={() => handleDuplicate(presentation.title)}>
-                            Duplicate
-                          </DropdownMenuItem>
-                          <DropdownMenuItem
-                            className="text-destructive"
-                            onClick={() => handleDelete(presentation.title)}
-                          >
-                            Delete
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
+              {filteredPresentations.map((presentation) => {
+                // Format the last edited time
+                const lastEdited = presentation.updated_at
+                  ? formatDistanceToNow(new Date(presentation.updated_at), { addSuffix: true })
+                  : "Never";
+
+                // Get thumbnail or use default
+                const thumbnail =
+                  presentation.thumbnail_url ||
+                  "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=225&fit=crop";
+
+                // Get status badge variant
+                const statusVariant = presentation.status === "completed" ? "default" : "secondary";
+
+                return (
+                  <Card
+                    key={presentation.id}
+                    className="hover:shadow-lg transition-all duration-200 hover:scale-[1.02] overflow-hidden"
+                  >
+                    <div className="aspect-video relative overflow-hidden bg-muted">
+                      <img src={thumbnail} alt={presentation.title} className="w-full h-full object-cover" />
+                      {presentation.status && (
+                        <Badge className="absolute top-2 right-2" variant={statusVariant}>
+                          {presentation.status}
+                        </Badge>
+                      )}
                     </div>
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                      <span>{presentation.slides} slides</span>
-                      <span>•</span>
-                      <span>{presentation.lastEdited}</span>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <Button variant="outline" className="w-full" size="sm" onClick={() => handleViewPresentation(presentation.id)}>
-                      View Deck
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
+                    <CardHeader className="pb-3">
+                      <div className="flex items-start justify-between">
+                        <CardTitle className="text-base line-clamp-1">{presentation.title}</CardTitle>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="icon" className="h-8 w-8 -mr-2">
+                              <MoreVertical className="h-4 w-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuItem onClick={() => handleEdit(presentation.id)}>
+                              Edit
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => handleDuplicate(presentation.title)}>
+                              Duplicate
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                              className="text-destructive"
+                              onClick={() => handleDelete(presentation.title)}
+                            >
+                              Delete
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                        <span>{presentation.slide_count || 0} slides</span>
+                        <span>•</span>
+                        <span>{lastEdited}</span>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="pt-0">
+                      <Button
+                        variant="outline"
+                        className="w-full"
+                        size="sm"
+                        onClick={() => handleViewPresentation(presentation.id)}
+                      >
+                        View Deck
+                      </Button>
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
           )}
         </section>

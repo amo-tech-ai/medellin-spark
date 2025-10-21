@@ -39,7 +39,7 @@ const Navbar = () => {
               </Link>
             ))}
             <Button asChild>
-              <Link to="/auth">Join Community</Link>
+              <Link to="/startup-profile">Join Community</Link>
             </Button>
           </div>
 
@@ -47,6 +47,7 @@ const Navbar = () => {
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden p-2 hover:bg-muted rounded-lg transition-smooth"
+            aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -66,7 +67,7 @@ const Navbar = () => {
               </Link>
             ))}
             <Button asChild className="w-full mt-4">
-              <Link to="/auth">Join Community</Link>
+              <Link to="/startup-profile">Join Community</Link>
             </Button>
           </div>
         )}

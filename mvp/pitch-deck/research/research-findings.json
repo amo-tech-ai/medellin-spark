@@ -1,0 +1,438 @@
+{
+  "repositories": [
+    {
+      "name": "barun-saha/slide-deck-ai",
+      "url": "https://github.com/barun-saha/slide-deck-ai",
+      "stars": 274,
+      "forks": 47,
+      "lastUpdate": "2025-03-21",
+      "status": "active",
+      "coreFeatures": [
+        "AI slide deck generation from topic description",
+        "PDF-based presentation generation",
+        "Multi-template support",
+        "Image search and integration",
+        "Iterative refinement with chat interface",
+        "Multi-LLM provider support"
+      ],
+      "advancedFeatures": [
+        "Offline LLM support via Ollama",
+        "Vector embeddings for PDF processing",
+        "Multi-provider image generation",
+        "Structured JSON output schema",
+        "Chat history maintenance"
+      ],
+      "techStack": [
+        "Python",
+        "Streamlit",
+        "python-pptx",
+        "LangChain",
+        "OpenAI",
+        "Google Gemini",
+        "Anthropic Claude",
+        "Cohere",
+        "Together AI",
+        "OpenRouter",
+        "Ollama"
+      ],
+      "agentPattern": "single-agent",
+      "license": "MIT",
+      "productionReady": true,
+      "score": 85,
+      "notes": "Most mature open-source solution. Won 3rd place in Llama 2 Hackathon. Supports both online and offline LLMs. Well-documented with active maintenance. Uses structured JSON schemas for content generation and iterative refinement workflow."
+    },
+    {
+      "name": "presenton/presenton",
+      "url": "https://github.com/presenton/presenton",
+      "stars": 2500,
+      "forks": 472,
+      "lastUpdate": "2025-10-10",
+      "status": "active",
+      "coreFeatures": [
+        "AI presentation generation from prompts",
+        "Document-based generation",
+        "Template creation from PPTX files",
+        "Export to PPTX and PDF",
+        "Custom HTML/Tailwind templates",
+        "Real-time editing interface"
+      ],
+      "advancedFeatures": [
+        "Built-in MCP server",
+        "API deployment mode",
+        "Multi-provider support (OpenAI, Google, Anthropic, Ollama)",
+        "Docker deployment with GPU support",
+        "Web grounding/search integration",
+        "Anonymous telemetry",
+        "SVG icons and charts"
+      ],
+      "techStack": [
+        "TypeScript",
+        "Next.js",
+        "Python",
+        "FastAPI",
+        "Docker",
+        "OpenAI",
+        "Google Gemini",
+        "Anthropic Claude",
+        "Ollama",
+        "Pexels",
+        "Pixabay"
+      ],
+      "agentPattern": "single-agent",
+      "license": "Apache-2.0",
+      "productionReady": true,
+      "score": 95,
+      "notes": "Most feature-rich and production-ready solution. Enterprise-focused with cloud offering. Excellent API design. MCP server integration for Model Context Protocol. Strong community (2.5k stars). Best-in-class for self-hosted solutions. Active development with recent commits."
+    },
+    {
+      "name": "noahmeurer/pitch-deck-teardown-agent",
+      "url": "https://github.com/noahmeurer/pitch-deck-teardown-agent",
+      "stars": 0,
+      "forks": 0,
+      "lastUpdate": "2025-06-08",
+      "status": "stale",
+      "coreFeatures": [
+        "Multi-stage pitch deck analysis",
+        "VC analyst workflow emulation",
+        "PDF upload and processing",
+        "Executive summary generation",
+        "Fit analysis"
+      ],
+      "advancedFeatures": [
+        "Supabase integration",
+        "Vector embeddings for analysis",
+        "Monorepo architecture",
+        "Storage bucket management"
+      ],
+      "techStack": [
+        "TypeScript",
+        "Next.js",
+        "Supabase",
+        "Google Gemini",
+        "pnpm workspace"
+      ],
+      "agentPattern": "multi-agent",
+      "license": "unknown",
+      "productionReady": false,
+      "score": 40,
+      "notes": "Analysis-focused rather than generation. Multi-stage agent architecture. Stale (4 months old). Small project, no community. Interesting concept of VC analyst workflow. Uses Supabase for data storage. Not production-ready but good architectural reference."
+    },
+    {
+      "name": "shadowaxe99/decker",
+      "url": "https://github.com/shadowaxe99/decker",
+      "stars": 0,
+      "forks": 0,
+      "lastUpdate": "2023-12-03",
+      "status": "stale",
+      "coreFeatures": [
+        "Personalized pitch deck generation",
+        "Investor-specific customization",
+        "Web scraping (X.com, Crunchbase)",
+        "Image fetching"
+      ],
+      "advancedFeatures": [
+        "Investor profiling",
+        "Multi-platform data aggregation"
+      ],
+      "techStack": [
+        "Python",
+        "Flask",
+        "HTML/CSS/JavaScript",
+        "SCSS"
+      ],
+      "agentPattern": "single-agent",
+      "license": "Apache-2.0",
+      "productionReady": false,
+      "score": 25,
+      "notes": "Very stale (2 years old). Abandoned project. Basic Flask app. Interesting concept of investor-specific personalization. Web scraping for investor research. Not suitable for production. Historical reference only."
+    },
+    {
+      "name": "zolidar/zolidar-pitch-builder",
+      "url": "https://github.com/zolidar/zolidar-pitch-builder",
+      "stars": 1,
+      "forks": 0,
+      "lastUpdate": "unknown",
+      "status": "unknown",
+      "coreFeatures": [
+        "AI-powered pitch deck framework"
+      ],
+      "advancedFeatures": [],
+      "techStack": [
+        "TypeScript"
+      ],
+      "agentPattern": "unknown",
+      "license": "unknown",
+      "productionReady": false,
+      "score": 10,
+      "notes": "Minimal online presence. Very low stars. Likely private or incomplete. Cannot assess features without access."
+    },
+    {
+      "name": "moefc32/pitch-deck-generator",
+      "url": "https://github.com/moefc32/pitch-deck-generator",
+      "stars": 0,
+      "forks": 0,
+      "lastUpdate": "unknown",
+      "status": "unknown",
+      "coreFeatures": [],
+      "advancedFeatures": [],
+      "techStack": [],
+      "agentPattern": "unknown",
+      "license": "unknown",
+      "productionReady": false,
+      "score": 5,
+      "notes": "Repository not found in search results. May be private, deleted, or misnamed."
+    },
+    {
+      "name": "Fltvv/ai-pitch-deck-generator",
+      "url": "https://github.com/Fltvv/ai-pitch-deck-generator",
+      "stars": 0,
+      "forks": 0,
+      "lastUpdate": "unknown",
+      "status": "unknown",
+      "coreFeatures": [],
+      "advancedFeatures": [],
+      "techStack": [],
+      "agentPattern": "unknown",
+      "license": "unknown",
+      "productionReady": false,
+      "score": 5,
+      "notes": "Repository not found in search results. May be private, deleted, or misnamed."
+    },
+    {
+      "name": "nihal1521/InstaStartup-Agent",
+      "url": "https://github.com/nihal1521/InstaStartup-Agent",
+      "stars": 0,
+      "forks": 0,
+      "lastUpdate": "unknown",
+      "status": "unknown",
+      "coreFeatures": [],
+      "advancedFeatures": [],
+      "techStack": [],
+      "agentPattern": "unknown",
+      "license": "unknown",
+      "productionReady": false,
+      "score": 5,
+      "notes": "Repository not found in search results. May be private, deleted, or misnamed."
+    },
+    {
+      "name": "aryan-Patel-web/PitchPal-AI",
+      "url": "https://github.com/aryan-Patel-web/PitchPal-AI",
+      "stars": 0,
+      "forks": 0,
+      "lastUpdate": "unknown",
+      "status": "unknown",
+      "coreFeatures": [
+        "Startup pitch analysis",
+        "Accelerator application generation"
+      ],
+      "advancedFeatures": [],
+      "techStack": [],
+      "agentPattern": "unknown",
+      "license": "unknown",
+      "productionReady": false,
+      "score": 15,
+      "notes": "Commercial product (pitchpal.app) rather than open-source. Focuses on application generation for accelerators. GitHub repository not accessible. Analysis-focused rather than generation."
+    }
+  ],
+  "patterns": {
+    "openai": {
+      "summary": "OpenAI function calling is the pioneering approach to connecting LLMs with external tools. Tightly integrated with OpenAI API and SDK handling call/response format automatically. Best for rapid prototyping and OpenAI-centric architectures.",
+      "advantages": [
+        "Automated integration",
+        "First-class SDK support",
+        "Well-documented",
+        "Easy to implement",
+        "Good for quick iteration"
+      ],
+      "disadvantages": [
+        "Vendor lock-in",
+        "No cross-model consistency",
+        "Limited flexibility",
+        "Centralized control"
+      ],
+      "useCases": [
+        "Rapid prototyping",
+        "OpenAI-only applications",
+        "Simple tool calling",
+        "Production apps with OpenAI commitment"
+      ]
+    },
+    "claude": {
+      "summary": "Claude tool use with Model Context Protocol (MCP) prioritizes developer control and flexible deployment. MCP is the 'USB standard for AI tools' - a universal interface ensuring compatibility across models. Better for enterprise and self-hosted solutions.",
+      "advantages": [
+        "Model-agnostic (works with Claude, GPT, Llama, etc.)",
+        "Developer control",
+        "Flexible deployment",
+        "Local execution support",
+        "Better governance",
+        "MCP standardization"
+      ],
+      "disadvantages": [
+        "More setup required",
+        "Manual configuration",
+        "Newer ecosystem",
+        "Requires more code"
+      ],
+      "useCases": [
+        "Enterprise applications",
+        "Multi-model systems",
+        "Self-hosted solutions",
+        "Privacy-sensitive apps",
+        "Long-term maintainability"
+      ]
+    },
+    "multiAgent": {
+      "summary": "Multi-agent architectures divide responsibilities across specialized agents for retrieval, ranking, reasoning, and orchestration. Each agent focuses on its specialized capability using custom models and data, improving relevance, latency, and coherence.",
+      "architectureTypes": [
+        "Coordinator Agents (workflow orchestration)",
+        "Retrieval Agents (data access and filtering)",
+        "Reasoning Agents (synthesis and analysis)",
+        "Specialized Task Agents"
+      ],
+      "frameworks": [
+        "LangGraph",
+        "CrewAI",
+        "LlamaIndex",
+        "AutoGen"
+      ],
+      "benefits": [
+        "35-50% reduction in query resolution time",
+        "60-80% decrease in hallucination incidents",
+        "25-40% improvement in user satisfaction",
+        "30-45% reduction in support escalations"
+      ],
+      "implementation": "Multi-agent systems work asynchronously, allowing each agent to operate independently with specialized models and data sources. Coordinator agents manage task distribution while specialized agents handle domain-specific operations."
+    },
+    "rag": {
+      "summary": "Agentic RAG combines retrieval-augmented generation with agent-based architectures. Agents dynamically access multiple knowledge bases and use external tools, transitioning from static rule-based querying to adaptive, intelligent problem-solving.",
+      "types": [
+        "Single-agent RAG (simple router)",
+        "Multi-agent RAG (specialized retrievers)",
+        "Hierarchical RAG (nested agents)"
+      ],
+      "advantages": [
+        "Access to external knowledge bases",
+        "Dynamic tool use",
+        "Reduced hallucinations",
+        "Improved accuracy",
+        "Adaptive problem-solving"
+      ],
+      "frameworks": [
+        "LlamaIndex",
+        "LangChain",
+        "LangGraph",
+        "CrewAI"
+      ],
+      "useCases": [
+        "Document analysis",
+        "Knowledge management",
+        "Research automation",
+        "Content generation with sources"
+      ]
+    },
+    "structuredOutput": {
+      "summary": "Structured output generation ensures LLM responses conform to specific formats using JSON schemas, making outputs predictable and machine-readable. Critical for presentation generation where slide structure must be consistent.",
+      "approaches": [
+        "Prompt-based (schema in prompt)",
+        "Grammar-based decoding (constrained generation)",
+        "Function calling (OpenAI native)",
+        "Tool use (Claude/MCP)",
+        "Pydantic models"
+      ],
+      "libraries": [
+        "Jsonformer",
+        "Outlines",
+        "Instructor",
+        "LangChain structured output"
+      ],
+      "bestPractices": [
+        "Include 'Respond with valid JSON only' in prompts",
+        "Provide schema definition upfront",
+        "Use Pydantic for validation",
+        "Implement retry logic",
+        "Handle partial responses",
+        "Use constrained decoding when available"
+      ]
+    },
+    "fileGeneration": {
+      "summary": "PPTX and PDF generation from AI-generated content using Python libraries. python-pptx is the standard for PowerPoint generation, while reportlab handles PDF creation.",
+      "libraries": [
+        "python-pptx (PowerPoint creation)",
+        "reportlab (PDF generation)",
+        "PyMuPDF (PDF processing)",
+        "Spire.Presentation (PPTX to PDF)",
+        "pdf2pptx (PDF to PPTX conversion)"
+      ],
+      "workflow": [
+        "LLM generates structured JSON",
+        "Parse JSON into data structures",
+        "Apply template/theme",
+        "Generate PPTX with python-pptx",
+        "Convert to PDF if needed",
+        "Add images and charts"
+      ],
+      "challenges": [
+        "Template consistency",
+        "Image placement",
+        "Font rendering",
+        "Layout responsiveness",
+        "File size optimization"
+      ]
+    }
+  },
+  "bestPractices": [
+    "Use structured JSON schemas for consistent LLM output",
+    "Implement multi-stage generation (outline → content → design)",
+    "Support multiple LLM providers for flexibility",
+    "Enable offline mode with Ollama for privacy",
+    "Use python-pptx for PPTX generation",
+    "Implement iterative refinement with chat interface",
+    "Support template customization",
+    "Add image generation/search integration",
+    "Enable PDF and PPTX export",
+    "Use vector embeddings for document processing",
+    "Implement proper error handling and retry logic",
+    "Add telemetry for monitoring (opt-in)",
+    "Support Docker deployment",
+    "Use MCP for tool standardization",
+    "Implement RLS for security",
+    "Add API mode for programmatic access"
+  ],
+  "innovations": [
+    "Template generation from existing PPTX files (Presenton)",
+    "MCP server integration for standardized tool use (Presenton)",
+    "Multi-stage VC analyst workflow emulation (pitch-deck-teardown-agent)",
+    "Offline LLM support via Ollama (slide-deck-ai, Presenton)",
+    "Investor-specific personalization (decker)",
+    "Web grounding for real-time data (Presenton)",
+    "Custom HTML/Tailwind templates (Presenton)",
+    "Chat-based iterative refinement (slide-deck-ai)",
+    "Multi-provider image generation (both)",
+    "Vector embeddings for PDF processing (slide-deck-ai)",
+    "GPU-accelerated Docker deployment (Presenton)",
+    "API-first architecture (Presenton)"
+  ],
+  "recommendations": {
+    "forProduction": "Presenton is the clear winner for production use. 2.5k stars, active development, enterprise features, MCP integration, excellent API design, and Docker deployment make it ideal for self-hosted or cloud solutions.",
+    "forLearning": "slide-deck-ai is excellent for learning. Well-documented, MIT license, simpler architecture, and Streamlit interface make it easy to understand and modify.",
+    "forAnalysis": "pitch-deck-teardown-agent shows interesting multi-agent architecture for analysis use cases, though it's not production-ready.",
+    "architectureChoice": "Use Claude/MCP for enterprise and multi-model flexibility. Use OpenAI function calling for rapid prototyping with OpenAI commitment.",
+    "agentPattern": "Single-agent works for basic generation. Multi-agent is better for complex workflows (research → generate → analyze → refine).",
+    "deployment": "Docker with GPU support for Ollama. Separate API service from frontend. Use edge functions for serverless scaling."
+  },
+  "marketAnalysis": {
+    "topOpenSource": [
+      "Presenton (2.5k stars, production-ready)",
+      "slide-deck-ai (274 stars, mature)"
+    ],
+    "commercialAlternatives": [
+      "Gamma",
+      "Beautiful.ai",
+      "Decktopus",
+      "PitchBob",
+      "PitchGrade"
+    ],
+    "gap": "Most open-source solutions focus on generation. Few handle analysis, coaching, or investor-specific personalization. Multi-agent architectures are underexplored.",
+    "opportunity": "Combine Presenton's generation quality with pitch-deck-teardown-agent's analysis capabilities and decker's investor personalization for a complete solution."
+  }
+}

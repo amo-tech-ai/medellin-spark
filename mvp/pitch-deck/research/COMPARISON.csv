@@ -1,0 +1,21 @@
+Rank,Solution,Type,Stars_Users,Active_2025,Core_Features,Advanced_Features,Agent_AI,Tech_Stack,Score,License,Best_For
+1,Presenton,OSS,2500,Yes,"Templates, PPTX/PDF export, MCP server","Web search, multi-LLM, Docker, self-hosted","OpenAI, Claude, Gemini, Ollama","Node.js, Docker, Nginx",92,Apache 2.0,"Enterprise, privacy, customization"
+2,Gamma,Commercial,1000000+,Yes,"Zero formatting, AI-first design, templates","Real-time collab, analytics, embed anywhere",Proprietary AI,SaaS,89,Proprietary,"Fast creation, no design skills"
+3,Presentation AI,OSS,932,Yes,"9 themes, real-time gen, editable outlines","Auto-save, stock photos, custom themes","OpenAI, Together AI, Ollama","Next.js, PostgreSQL, Prisma",88,MIT,"Modern UX, theme variety"
+4,PPTAgent,OSS/Research,2100,Yes,"Two-phase (analyze + gen), Mermaid diagrams, PPTEval","Reference learning, quality scoring, MCP server","Multi-LLM, academic framework","Python, Docker, HuggingFace",86,MIT,"Research, academic, quality analysis"
+5,Beautiful.ai,Commercial,500000+,Yes,"Smart templates, auto-design, brand kit","Team collab, version control, analytics",Proprietary design AI,SaaS,85,Proprietary,"Professional design, teams"
+6,Medellin Spark,Custom,N/A,Yes,"Conversational flow, GPT-5 mini, progress tracking","Function calling, auto-save, 10-slide structure","GPT-5 mini, tool use","React, Supabase, TypeScript",85,Custom,"Conversational UX, founders"
+7,Decktopus,Commercial,100000+,Yes,"AI content gen, 100+ templates, analytics","Webhook integrations, custom domains, lead forms",OpenAI integration,SaaS,84,Proprietary,"Marketing decks, lead gen"
+8,SlideDeck AI,OSS,274,Yes,"PDF upload, multi-LLM, offline mode","Iterative refinement, image keywords, Hugging Face","Gemini, Azure, Cohere, Ollama","Python, Streamlit, python-pptx",82,MIT,"PDF conversion, privacy, offline"
+9,Canva Magic Design,Commercial,100000000+,Yes,"Template customization, drag-drop, asset library","Brand kit, animation, collaboration",Proprietary AI,SaaS,81,Proprietary,"Visual design, non-tech users"
+10,SlidesAI,Commercial/Free,50000+,Yes,"Google Slides integration, topic-to-slides","Citations, language support, custom themes",OpenAI,Google Workspace add-on,80,Freemium,Google Workspace users
+11,Pitch,Commercial,10000+ teams,Yes,"Sales-focused, real-time collab, smart templates","CRM integration, analytics, video embedding",Proprietary,SaaS,79,Proprietary,"Sales teams, B2B pitches"
+12,PitchBob,Commercial,35000+,Yes,"10+ templates, one-click gen, investor matching","Business plan, financials, investor database",Proprietary,SaaS,78,Proprietary,"Startups, investor matching"
+13,Presenter,OSS,175,Partial,"Multi-agent, Mermaid diagrams, voice-over","Video export, FFmpeg, ElevenLabs narration",LlamaIndex workflows,"Python, markdown-slides",76,Open,Voice-over presentations
+14,Simplified,Commercial,5000000+,Yes,"All-in-one (design, video, social), AI writer","Social media mgmt, brand kit, stock library",Proprietary,SaaS,75,Freemium,"Content creators, multi-format"
+15,Plus AI,Commercial,10000+,Yes,"Google Slides add-on, slide rewriting, snapshots","Export to PPTX, slide remixing",OpenAI,Google Workspace add-on,73,Freemium,Google Slides power users
+16,Slidebean,Commercial,50000+,Yes,"YC template, AI pitch consultant, analytics","Investor outreach, financial modeling",Proprietary,SaaS,72,Freemium,"YC applicants, fundraising"
+17,slides_generator,OSS,200,Partial,"Single-prompt PPTX, Russian focus",Template-based generation,Basic LLM,Python,68,MIT,"Simple generation, Russian market"
+18,SlideAI,OSS,50,Partial,"Basic gen, OpenAI + Bing","Image search, auto-formatting","OpenAI, Bing API",Next.js,65,MIT,"Learning projects, prototypes"
+19,QuikSlide,OSS/Hackathon,30,No,"Hackathon project, basic gen","Image search, tokenization",OpenAI,"Python, Flask",58,MIT,"Educational, hackathon reference"
+20,Decker,OSS,0,No,Investor-specific personalization concept,Crunchbase/X search,OpenAI,"Python, Flask",55,Apache 2.0,Concept/abandoned project

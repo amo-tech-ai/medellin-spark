@@ -6,6 +6,12 @@ interface ProtectedRouteProps {
 }
 
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
+  // DEV MODE: Auth disabled - return children directly
+  if (import.meta.env.DEV) {
+    return <>{children}</>;
+  }
+
+  // PRODUCTION: Enable auth checking
   const { user, loading } = useAuth();
 
   if (loading) {

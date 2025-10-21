@@ -8,7 +8,7 @@ interface ThumbnailPanelProps {
 
 export const ThumbnailPanel = ({ slides, currentSlideIndex, onSlideClick }: ThumbnailPanelProps) => {
   return (
-    <div className="w-64 border-r border-border bg-card">
+    <div className="hidden md:block w-64 border-r border-border bg-card">
       <div className="p-4 border-b border-border">
         <h2 className="font-semibold text-foreground">Slides</h2>
       </div>

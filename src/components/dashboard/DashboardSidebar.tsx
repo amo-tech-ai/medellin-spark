@@ -28,7 +28,7 @@ const mainItems = [
   { title: "Events", url: "/dashboard/events", icon: Calendar },
   { title: "Jobs", url: "/dashboard/jobs", icon: Briefcase },
   { title: "Perks", url: "/dashboard/perks", icon: Gift },
-  { title: "Wizard", url: "/wizard", icon: Rocket },
+  { title: "Submit Startup", url: "/startup-profile", icon: Rocket },
   { title: "Pitch Deck", url: "/pitch-deck", icon: PresentationIcon },
 ];
 
@@ -42,9 +42,11 @@ export function DashboardSidebar() {
   const { open } = useSidebar();
 
   const getNavClassName = ({ isActive }: { isActive: boolean }) =>
-    isActive
-      ? "bg-accent text-accent-foreground font-medium"
-      : "hover:bg-accent/50";
+    `min-h-[44px] ${
+      isActive
+        ? "bg-accent text-accent-foreground font-medium"
+        : "hover:bg-accent/50"
+    } active:scale-[0.98] transition-all`;
 
   return (
     <Sidebar className={open ? "w-60" : "w-14"} collapsible="icon">
@@ -60,7 +62,7 @@ export function DashboardSidebar() {
         )}
       </div>
 
-      <SidebarContent>
+      <SidebarContent className="overflow-y-auto">
         <SidebarGroup>
           <SidebarGroupLabel>Main Menu</SidebarGroupLabel>
           <SidebarGroupContent>
@@ -69,8 +71,8 @@ export function DashboardSidebar() {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild tooltip={item.title}>
                     <NavLink to={item.url} className={getNavClassName}>
-                      <item.icon className="h-4 w-4" />
-                      {open && <span>{item.title}</span>}
+                      <item.icon className="h-6 w-6" />
+                      {open && <span className="text-base">{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -87,8 +89,8 @@ export function DashboardSidebar() {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild tooltip={item.title}>
                     <NavLink to={item.url} className={getNavClassName}>
-                      <item.icon className="h-4 w-4" />
-                      {open && <span>{item.title}</span>}
+                      <item.icon className="h-6 w-6" />
+                      {open && <span className="text-base">{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

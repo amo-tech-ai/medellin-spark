@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -21,6 +22,7 @@ import {
 } from "lucide-react";
 
 const StartupProfile = () => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [profileData, setProfileData] = useState({
     companyName: "",
@@ -598,9 +600,13 @@ const StartupProfile = () => {
               <div className="bg-card border border-divider rounded-xl p-6">
                 <h3 className="font-semibold mb-4">Quick Actions</h3>
                 <div className="space-y-2">
-                  <Button variant="outline" className="w-full justify-start gap-2">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start gap-2"
+                    onClick={() => navigate('/pitch-deck-wizard')}
+                  >
                     <Sparkles size={16} />
-                    Generate AI Pitch
+                    Generate Pitch Deck
                   </Button>
                   <Button variant="outline" className="w-full justify-start gap-2">
                     <Upload size={16} />

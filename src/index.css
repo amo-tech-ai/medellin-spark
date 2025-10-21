@@ -20,8 +20,8 @@ All colors MUST be HSL.
 
     /* Main brand color - calm blue */
     --primary: 197 28% 69%;
-    --primary-foreground: 0 0% 100%;
-    
+    --primary-foreground: 0 0% 12%; /* Dark text for better contrast (was white) */
+
     /* Hover states */
     --primary-hover: 197 28% 62%;
     --primary-dark: 197 28% 57%;
@@ -38,20 +38,20 @@ All colors MUST be HSL.
     --accent: 197 28% 78%;
     --accent-foreground: 0 0% 12%;
 
-    --destructive: 0 65% 55%;
+    --destructive: 0 70% 50%; /* Darkened for WCAG AA (was 55%) */
     --destructive-foreground: 0 0% 100%;
-    
+
     /* Success state - soft green */
-    --success: 145 40% 60%;
+    --success: 145 60% 33%; /* WCAG AA compliant (≥4.5:1) */
     --success-foreground: 0 0% 100%;
-    
+
     /* Warning state - soft amber */
     --warning: 35 80% 65%;
     --warning-foreground: 0 0% 12%;
-    
+
     /* CTA Accent - Warm Amber for primary actions */
-    --cta-accent: 38 92% 55%;
-    --cta-accent-hover: 38 92% 48%;
+    --cta-accent: 38 92% 33%; /* WCAG AA compliant (≥4.5:1) */
+    --cta-accent-hover: 38 92% 28%;
     --cta-accent-foreground: 0 0% 100%;
 
     --border: 200 13% 90%;

@@ -49,7 +49,7 @@ const Home = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" asChild>
-              <Link to="/wizard">
+              <Link to="/startup-profile">
                 Join the Community <ArrowRight className="ml-2" size={20} />
               </Link>
             </Button>
@@ -90,7 +90,7 @@ const Home = () => {
                 Get AI-powered analysis, matched perks, mentorship, and funding.
               </p>
               <Button asChild className="w-full">
-                <Link to="/wizard">Get Started</Link>
+                <Link to="/startup-profile">Get Started</Link>
               </Button>
             </div>
 
@@ -157,7 +157,7 @@ const Home = () => {
             Join 500+ founders building the future of AI in Medellin
           </p>
           <Button size="lg" variant="secondary" asChild>
-            <Link to="/wizard">
+            <Link to="/startup-profile">
               Start Your Journey <ArrowRight className="ml-2" size={20} />
             </Link>
           </Button>

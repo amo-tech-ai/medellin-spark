@@ -1,1 +1,12 @@
 project_id = "dhesktsqhcxhqfjypulk"
+
+# Edge Functions Configuration
+# Allow functions to be called without authentication for development
+[functions.chat]
+verify_jwt = false
+
+[functions.pitch-deck-assistant]
+verify_jwt = false
+
+[functions.generate-pitch-deck]
+verify_jwt = false

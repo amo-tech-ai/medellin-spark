@@ -35,7 +35,7 @@ const Footer = () => {
   return (
     <footer className="bg-secondary border-t border-border mt-24">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center gap-2 mb-4">
@@ -65,7 +65,7 @@ const Footer = () => {
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               {quickLinks.map((link) => (
-                <li key={link.path}>
+                <li key={link.name}>
                   <Link
                     to={link.path}
                     className="text-sm text-muted-foreground hover:text-primary transition-smooth"
@@ -82,7 +82,7 @@ const Footer = () => {
             <h4 className="font-semibold mb-4">Dashboards</h4>
             <ul className="space-y-2">
               {dashboards.map((link) => (
-                <li key={link.path}>
+                <li key={link.name}>
                   <Link
                     to={link.path}
                     className="text-sm text-muted-foreground hover:text-primary transition-smooth"
@@ -99,7 +99,7 @@ const Footer = () => {
             <h4 className="font-semibold mb-4">Community</h4>
             <ul className="space-y-2">
               {community.map((link) => (
-                <li key={link.path}>
+                <li key={link.name}>
                   <a
                     href={link.path}
                     className="text-sm text-muted-foreground hover:text-primary transition-smooth"

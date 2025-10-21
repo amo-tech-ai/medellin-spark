@@ -1,0 +1,444 @@
+-- Migration: 06_seeds_dev.sql
+-- Purpose: Development seed data for Medellín Spark platform
+-- Affected: Sample data for testing and development
+-- WARNING: DEV ONLY - DO NOT RUN IN PRODUCTION
+-- Compatibility: PostgreSQL 15+ (Supabase)
+-- Author: Database Architect Agent
+-- Date: 2025-10-12
+
+-- ==============================================================================
+-- ⚠️  WARNING: DEVELOPMENT DATA ONLY
+-- ==============================================================================
+-- This file contains sample data for local development and testing.
+-- DO NOT apply this migration to production environments.
+-- Idempotent: Uses ON CONFLICT DO NOTHING for safe re-runs.
+-- ==============================================================================
+
+set client_min_messages to warning;
+
+-- ==============================================================================
+-- SAMPLE PROFILES
+-- ==============================================================================
+-- NOTE: In production, profiles are created via auth trigger
+-- For dev, we'll insert sample profiles with deterministic UUIDs
+
+-- Sample user profile (simulating authenticated user)
+insert into profiles (
+  id,
+  user_id,
+  email,
+  full_name,
+  bio,
+  company,
+  job_title,
+  avatar_url
+) values (
+  '00000000-0000-0000-0000-000000000001'::uuid,
+  '00000000-0000-0000-0000-000000000001'::uuid, -- Would be auth.users.id
+  'demo@medellin-spark.co',
+  'Demo User',
+  'Passionate about Medellín''s tech ecosystem',
+  'Ruta N',
+  'Innovation Manager',
+  'https://api.dicebear.com/7.x/avataaars/svg?seed=demo'
+)
+on conflict (id) do nothing;
+
+-- ==============================================================================
+-- SAMPLE ORGANIZER
+-- ==============================================================================
+
+insert into organizers (
+  id,
+  profile_id,
+  name,
+  description,
+  logo_url,
+  website_url,
+  contact_email
+) values (
+  '00000000-0000-0000-0000-000000000101'::uuid,
+  '00000000-0000-0000-0000-000000000001'::uuid,
+  'Ruta N',
+  'Medellín''s innovation and business center, driving the city''s transformation into a global innovation hub.',
+  'https://www.rutanmedellin.org/images/logo-ruta-n.png',
+  'https://www.rutanmedellin.org',
+  'eventos@rutanmedellin.org'
+)
+on conflict (id) do nothing;
+
+-- ==============================================================================
+-- SAMPLE VENUE
+-- ==============================================================================
+
+insert into venues (
+  id,
+  name,
+  address,
+  city,
+  country,
+  latitude,
+  longitude,
+  capacity,
+  description,
+  amenities,
+  image_url
+) values (
+  '00000000-0000-0000-0000-000000000201'::uuid,
+  'Ruta N Innovation Center',
+  'Calle 67 #52-20',
+  'Medellín',
+  'Colombia',
+  6.2638197,
+  -75.5687637,
+  500,
+  'Modern innovation hub in the heart of Medellín with state-of-the-art facilities.',
+  array['wifi', 'projector', 'sound_system', 'parking', 'catering', 'accessibility'],
+  'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800'
+)
+on conflict (id) do nothing;
+
+-- ==============================================================================
+-- SAMPLE EVENT
+-- ==============================================================================
+
+-- Event scheduled 14 days from now
+insert into events (
+  id,
+  organizer_id,
+  title,
+  slug,
+  description,
+  event_date,
+  end_date,
+  status,
+  image_url,
+  capacity,
+  registered_count,
+  is_virtual,
+  tags
+) values (
+  '00000000-0000-0000-0000-000000000301'::uuid,
+  '00000000-0000-0000-0000-000000000101'::uuid,
+  'Startup Pitch Night Medellín',
+  'startup-pitch-night-medellin',
+  'Join us for an exciting evening of innovation as local startups pitch their ideas to investors and the community. Network with founders, investors, and innovation enthusiasts.',
+  now() + interval '14 days',
+  now() + interval '14 days' + interval '3 hours',
+  'published',
+  'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800',
+  200,
+  0,
+  false,
+  array['startups', 'pitching', 'networking', 'innovation']
+)
+on conflict (id) do nothing;
+
+-- Link event to venue
+insert into event_venues (event_id, venue_id)
+values (
+  '00000000-0000-0000-0000-000000000301'::uuid,
+  '00000000-0000-0000-0000-000000000201'::uuid
+)
+on conflict (event_id, venue_id) do nothing;
+
+-- ==============================================================================
+-- SAMPLE TICKETS
+-- ==============================================================================
+
+-- Early bird ticket
+insert into tickets (
+  id,
+  event_id,
+  name,
+  description,
+  price,
+  capacity,
+  sold_count,
+  early_bird,
+  early_bird_deadline
+) values (
+  '00000000-0000-0000-0000-000000000401'::uuid,
+  '00000000-0000-0000-0000-000000000301'::uuid,
+  'Early Bird',
+  'Special early registration rate - limited availability!',
+  25000.00,
+  50,
+  0,
+  true,
+  now() + interval '7 days'
+)
+on conflict (id) do nothing;
+
+-- General admission ticket
+insert into tickets (
+  id,
+  event_id,
+  name,
+  description,
+  price,
+  capacity,
+  sold_count,
+  early_bird,
+  early_bird_deadline
+) values (
+  '00000000-0000-0000-0000-000000000402'::uuid,
+  '00000000-0000-0000-0000-000000000301'::uuid,
+  'General Admission',
+  'Standard ticket for the event',
+  35000.00,
+  150,
+  0,
+  false,
+  null
+)
+on conflict (id) do nothing;
+
+-- ==============================================================================
+-- SAMPLE SPONSORS
+-- ==============================================================================
+
+insert into sponsors (
+  id,
+  event_id,
+  company_name,
+  tier,
+  logo_url,
+  website_url,
+  description
+) values (
+  '00000000-0000-0000-0000-000000000501'::uuid,
+  '00000000-0000-0000-0000-000000000301'::uuid,
+  'Bancolombia',
+  'platinum',
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Bancolombia_logo.svg/200px-Bancolombia_logo.svg.png',
+  'https://www.bancolombia.com',
+  'Supporting innovation and entrepreneurship in Colombia'
+)
+on conflict (id) do nothing;
+
+-- ==============================================================================
+-- SAMPLE PERKS
+-- ==============================================================================
+
+-- Cloud credits perk
+insert into perks (
+  id,
+  title,
+  slug,
+  description,
+  provider_name,
+  provider_logo_url,
+  category,
+  value_description,
+  terms_url,
+  how_to_claim,
+  active,
+  featured,
+  eligibility_criteria
+) values (
+  '00000000-0000-0000-0000-000000000601'::uuid,
+  'AWS Activate Credits',
+  'aws-activate-credits',
+  'Get up to $100,000 in AWS credits to build and scale your startup on the world''s most comprehensive cloud platform.',
+  'Amazon Web Services',
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Amazon_Web_Services_Logo.svg/200px-Amazon_Web_Services_Logo.svg.png',
+  'cloud',
+  'Up to $100,000 in AWS credits',
+  'https://aws.amazon.com/activate',
+  'Apply through your verified startup profile. Approval typically takes 2-3 business days.',
+  true,
+  true,
+  'Startup must be less than 5 years old and have raised less than $10M in funding'
+)
+on conflict (id) do nothing;
+
+-- Marketing tools perk
+insert into perks (
+  id,
+  title,
+  slug,
+  description,
+  provider_name,
+  provider_logo_url,
+  category,
+  value_description,
+  terms_url,
+  how_to_claim,
+  active,
+  featured,
+  eligibility_criteria
+) values (
+  '00000000-0000-0000-0000-000000000602'::uuid,
+  'HubSpot for Startups',
+  'hubspot-for-startups',
+  'Get 90% off HubSpot''s Sales and Marketing Hubs to grow your business with powerful CRM tools.',
+  'HubSpot',
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/HubSpot_Logo.svg/200px-HubSpot_Logo.svg.png',
+  'marketing',
+  '90% off for 1 year (up to $30,000 value)',
+  'https://www.hubspot.com/startups',
+  'Submit your startup profile and HubSpot application link through the claim form.',
+  true,
+  false,
+  'Early-stage startups affiliated with qualifying partner organizations'
+)
+on conflict (id) do nothing;
+
+-- ==============================================================================
+-- SAMPLE COMPANY (for jobs)
+-- ==============================================================================
+
+insert into companies (
+  id,
+  profile_id,
+  name,
+  description,
+  logo_url,
+  website_url,
+  industry,
+  size_range,
+  location
+) values (
+  '00000000-0000-0000-0000-000000000701'::uuid,
+  '00000000-0000-0000-0000-000000000001'::uuid,
+  'TechCo Medellín',
+  'Innovative SaaS company building next-generation collaboration tools for remote teams.',
+  'https://api.dicebear.com/7.x/identicon/svg?seed=techco',
+  'https://techco-medellin.example',
+  'SaaS',
+  '11-50',
+  'Medellín, Colombia'
+)
+on conflict (id) do nothing;
+
+-- ==============================================================================
+-- SAMPLE JOB POSTING
+-- ==============================================================================
+
+insert into jobs (
+  id,
+  company_id,
+  title,
+  slug,
+  description,
+  requirements,
+  responsibilities,
+  type,
+  status,
+  location,
+  remote_allowed,
+  salary_min,
+  salary_max,
+  salary_currency
+) values (
+  '00000000-0000-0000-0000-000000000801'::uuid,
+  '00000000-0000-0000-0000-000000000701'::uuid,
+  'Senior Full Stack Developer',
+  'senior-full-stack-developer',
+  'We are looking for a talented Senior Full Stack Developer to join our growing team and help build the future of remote collaboration.',
+  '- 5+ years of experience with React and Node.js
+- Strong understanding of TypeScript
+- Experience with PostgreSQL or similar databases
+- Excellent problem-solving skills
+- Fluent in English, Spanish is a plus',
+  '- Design and implement new features for our SaaS platform
+- Collaborate with product and design teams
+- Mentor junior developers
+- Participate in code reviews and architecture decisions
+- Optimize application performance',
+  'full_time',
+  'published',
+  'Medellín, Colombia',
+  true,
+  60000000.00,
+  90000000.00,
+  'COP'
+)
+on conflict (id) do nothing;
+
+-- Add skills to job
+insert into job_skills (job_id, skill_name, required)
+values
+  ('00000000-0000-0000-0000-000000000801'::uuid, 'React', true),
+  ('00000000-0000-0000-0000-000000000801'::uuid, 'Node.js', true),
+  ('00000000-0000-0000-0000-000000000801'::uuid, 'TypeScript', true),
+  ('00000000-0000-0000-0000-000000000801'::uuid, 'PostgreSQL', true),
+  ('00000000-0000-0000-0000-000000000801'::uuid, 'GraphQL', false)
+on conflict (job_id, skill_name) do nothing;
+
+-- ==============================================================================
+-- SAMPLE STARTUP PROFILE
+-- ==============================================================================
+
+insert into startup_profiles (
+  id,
+  profile_id,
+  company_name,
+  description,
+  logo_url,
+  website_url,
+  industry,
+  stage,
+  team_size,
+  verified
+) values (
+  '00000000-0000-0000-0000-000000000901'::uuid,
+  '00000000-0000-0000-0000-000000000001'::uuid,
+  'InnovateLab',
+  'AI-powered platform helping Latin American startups optimize their operations and scale efficiently.',
+  'https://api.dicebear.com/7.x/shapes/svg?seed=innovatelab',
+  'https://innovatelab.example',
+  'AI/ML',
+  'seed',
+  8,
+  true
+)
+on conflict (id) do nothing;
+
+-- ==============================================================================
+-- SAMPLE WIZARD SESSION
+-- ==============================================================================
+
+insert into wizard_sessions (
+  id,
+  profile_id,
+  startup_name,
+  session_data,
+  completed,
+  deck_url
+) values (
+  '00000000-0000-0000-0000-000000001001'::uuid,
+  '00000000-0000-0000-0000-000000000001'::uuid,
+  'InnovateLab',
+  '{
+    "step": 5,
+    "problem": "Manual processes waste 60% of startup time",
+    "solution": "AI-powered automation platform",
+    "market_size": "$50B TAM in Latin America",
+    "business_model": "SaaS subscription $99-499/month",
+    "traction": "200 beta users, 40% MoM growth"
+  }'::jsonb,
+  false,
+  null
+)
+on conflict (id) do nothing;
+
+set client_min_messages to notice;
+
+-- ==============================================================================
+-- SEED DATA SUMMARY
+-- ==============================================================================
+-- Created sample data:
+-- ✓ 1 Profile (demo@medellin-spark.co)
+-- ✓ 1 Organizer (Ruta N)
+-- ✓ 1 Venue (Ruta N Innovation Center)
+-- ✓ 1 Event (Startup Pitch Night - 14 days from now)
+-- ✓ 2 Ticket tiers (Early Bird, General Admission)
+-- ✓ 1 Sponsor (Bancolombia - Platinum)
+-- ✓ 2 Perks (AWS Activate, HubSpot for Startups)
+-- ✓ 1 Company (TechCo Medellín)
+-- ✓ 1 Job (Senior Full Stack Developer with 5 skills)
+-- ✓ 1 Startup Profile (InnovateLab - verified)
+-- ✓ 1 Wizard Session (in progress)
+-- ==============================================================================

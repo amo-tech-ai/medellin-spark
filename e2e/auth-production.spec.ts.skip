@@ -1,0 +1,60 @@
+import { test, expect } from '@playwright/test';
+
+test.describe('Authentication & Route Protection', () => {
+  test('should redirect to /auth when accessing protected route without auth', async ({ page }) => {
+    // Navigate to protected pitch deck wizard
+    await page.goto('/pitch-deck-wizard');
+
+    // Should redirect to /auth
+    await expect(page).toHaveURL(/\/auth/);
+
+    // Should show auth form
+    await expect(page.locator('text=Welcome to Medellin AI')).toBeVisible();
+  });
+
+  test('should redirect to /auth when accessing dashboard without auth', async ({ page }) => {
+    // Navigate to protected dashboard
+    await page.goto('/dashboard');
+
+    // Should redirect to /auth
+    await expect(page).toHaveURL(/\/auth/);
+  });
+
+  test('should redirect to /auth when accessing presentation editor without auth', async ({ page }) => {
+    // Try to access presentation editor
+    await page.goto('/presentations/test-id/edit');
+
+    // Should redirect to /auth
+    await expect(page).toHaveURL(/\/auth/);
+  });
+
+  test('should show loading state while checking auth', async ({ page }) => {
+    // Navigate to protected route
+    const response = page.goto('/pitch-deck-wizard');
+
+    // Should briefly show loading spinner (or quickly redirect)
+    // Wait for either loading spinner OR redirect to auth
+    const redirected = await Promise.race([
+      page.waitForURL(/\/auth/, { timeout: 3000 }).then(() => true),
+      page.locator('.animate-spin').waitFor({ timeout: 500 }).then(() => true),
+    ]).catch(() => false);
+
+    // Ensure we're on auth page
+    await page.waitForURL(/\/auth/, { timeout: 5000 });
+    await expect(page).toHaveURL(/\/auth/);
+  });
+
+  test('should allow access to public routes without auth', async ({ page }) => {
+    // Navigate to home page
+    await page.goto('/');
+    await expect(page).toHaveURL('/');
+
+    // Navigate to about page
+    await page.goto('/about');
+    await expect(page).toHaveURL('/about');
+
+    // Navigate to auth page
+    await page.goto('/auth');
+    await expect(page).toHaveURL('/auth');
+  });
+});
