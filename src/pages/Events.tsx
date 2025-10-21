@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { FilterGroup } from "@/components/ui/filter-buttons";
 import { CategoryBadge } from "@/components/ui/category-badge";
 import { Calendar, Clock, MapPin, Users } from "lucide-react";
 
 const Events = () => {
+  const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState("all");
   const [activeTab, setActiveTab] = useState("upcoming");
 
@@ -158,7 +160,12 @@ const Events = () => {
               </div>
 
               {/* CTA */}
-              <Button className="w-full">Register Now</Button>
+              <Button
+                className="w-full"
+                onClick={() => navigate(`/events/${event.id}`)}
+              >
+                More Info
+              </Button>
             </div>
           ))}
         </div>
