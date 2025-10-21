@@ -17,6 +17,29 @@ interface Message {
   suggestions?: string[];
 }
 
+interface StartupData {
+  company_name?: string;
+  industry?: string;
+  problem?: string;
+  solution?: string;
+  target_market?: string;
+  business_model?: string;
+  [key: string]: string | undefined; // Allow other dynamic fields
+}
+
+interface PitchDeckAssistantResponse {
+  conversation_id: string;
+  message: string;
+  completeness: number;
+  collected_data: StartupData;
+  ready_to_generate: boolean;
+  suggestions?: string[];
+}
+
+interface GeneratePitchDeckResponse {
+  presentation_id: string;
+}
+
 const PitchDeckWizard = () => {
   const supabase = useSupabaseClient();
   const user = useUser();
@@ -36,7 +59,7 @@ const PitchDeckWizard = () => {
   // Claude conversation state
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [completeness, setCompleteness] = useState(0);
-  const [collectedData, setCollectedData] = useState<Record<string, unknown>>({});
+  const [collectedData, setCollectedData] = useState<StartupData>({});
   const [readyToGenerate, setReadyToGenerate] = useState(false);
 
   const handleSend = async () => {
@@ -59,7 +82,7 @@ const PitchDeckWizard = () => {
 
     try {
       // Call Claude AI Edge Function using central API client
-      const data = await apiClient.post('/pitch-deck-assistant', {
+      const data = await apiClient.post<PitchDeckAssistantResponse>('/pitch-deck-assistant', {
         message: userInput,
         conversation_id: conversationId,
         profile_id: user?.id || '00000000-0000-0000-0000-000000000000', // Dev mode: test UUID
@@ -136,7 +159,7 @@ const PitchDeckWizard = () => {
     try {
       toast.info("Generating your pitch deck...");
 
-      const data = await apiClient.post('/generate-pitch-deck', {
+      const data = await apiClient.post<GeneratePitchDeckResponse>('/generate-pitch-deck', {
         startup_data: collectedData,
         profile_id: user?.id || '00000000-0000-0000-0000-000000000000', // Dev mode: test UUID
       }, {

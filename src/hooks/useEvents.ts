@@ -1,22 +1,12 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "./useAuth";
+import { Database } from "@/integrations/supabase/types";
 
-export interface Event {
-  id: string;
-  title: string;
-  description: string | null;
-  start_date: string;
-  end_date: string | null;
-  location: string | null;
-  capacity: number | null;
-  category: string | null;
-  image_url: string | null;
-  is_active: boolean;
-  created_at: string;
-  registration_count?: number;
+// Use Supabase-generated type
+export type Event = Database['public']['Tables']['events']['Row'] & {
   is_registered?: boolean;
-}
+};
 
 export interface EventRegistration {
   id: string;
@@ -39,12 +29,12 @@ export function useEvents() {
   return useQuery({
     queryKey: ["events", user?.id],
     queryFn: async () => {
-      // Fetch all active events
+      // Fetch all active events (published status)
       const { data: events, error } = await supabase
         .from("events")
         .select("*")
-        .eq("is_active", true)
-        .order("start_date", { ascending: true });
+        .eq("status", "published")
+        .order("event_date", { ascending: true });
 
       if (error) {
         console.error("Error fetching events:", error);

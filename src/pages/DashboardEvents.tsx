@@ -155,14 +155,12 @@ export default function DashboardEvents() {
                         <CardDescription className="flex flex-wrap items-center gap-4 mt-2">
                           <span className="flex items-center gap-1">
                             <Calendar className="h-4 w-4" />
-                            {format(new Date(registration.events.start_date), "MMM dd, yyyy")}
+                            {format(new Date(registration.events.event_date), "MMM dd, yyyy")}
                           </span>
-                          {registration.events.location && (
-                            <span className="flex items-center gap-1">
-                              <MapPin className="h-4 w-4" />
-                              {registration.events.location}
-                            </span>
-                          )}
+                          <span className="flex items-center gap-1">
+                            <MapPin className="h-4 w-4" />
+                            {registration.events.is_virtual ? "Virtual" : "In-person"}
+                          </span>
                         </CardDescription>
                       </div>
                       <Badge variant="outline">
