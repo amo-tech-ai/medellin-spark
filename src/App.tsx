@@ -31,6 +31,7 @@ import Dashboard from "./pages/Dashboard";
 import DashboardEvents from "./pages/DashboardEvents";
 import DashboardSettings from "./pages/DashboardSettings";
 import DashboardPitchDecks from "./pages/DashboardPitchDecks";
+import DashboardJobs from "./pages/DashboardJobs";
 import OutlineEditor from "./pages/presentations/OutlineEditor";
 import SlideEditor from "./pages/presentations/SlideEditor";
 import PresentationViewer from "./pages/presentations/PresentationViewer";
@@ -78,9 +79,10 @@ const App = () => (
                   <Route path="/profile/:id?" element={<Profile />} />
 
                 {/* Dashboard Routes */}
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/dashboard/events" element={<DashboardEvents />} />
-                <Route path="/dashboard/pitch-decks" element={<DashboardPitchDecks />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/events" element={<DashboardEvents />} />
+          <Route path="/dashboard/pitch-decks" element={<DashboardPitchDecks />} />
+          <Route path="/dashboard/jobs" element={<DashboardJobs />} />
                 <Route path="/dashboard/settings" element={<DashboardSettings />} />
 
                 {/* Presentation Editor Routes */}
