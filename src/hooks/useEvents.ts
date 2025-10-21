@@ -96,7 +96,11 @@ export function useMyEvents() {
             description,
             event_date,
             end_date,
-            image_url
+            image_url,
+            is_virtual,
+            virtual_url,
+            capacity,
+            registered_count
           )
         `
         )
