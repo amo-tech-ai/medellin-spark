@@ -7,33 +7,41 @@
 
 ## 📋 Current Prompts (Priority Order)
 
-### TIER 1: Critical Detail Pages (Start Here)
+### TIER 1: Critical Detail Pages & Listings (Start Here)
 
 **01-event-detail-page.md** ⭐⭐⭐
 - Route: `/events/:id`
 - Time: 2-3 hours
 - Status: Ready to use
-- Copy entire file into Lovable to build Event Detail page
 
 **02-job-detail-page.md** ⭐⭐⭐
 - Route: `/jobs/:id`
 - Time: 2-3 hours
 - Status: Ready to use
-- Copy entire file into Lovable to build Job Detail page
 
 **03-perk-detail-page.md** ⭐⭐⭐
 - Route: `/perks/:id`
 - Time: 2-3 hours
 - Status: Ready to use
-- Copy entire file into Lovable to build Perk Detail page
 
-### TIER 2: Dashboard Pages
+**05-jobs-listing-page.md** ⭐⭐⭐
+- Route: `/jobs`
+- Time: 2-3 hours
+- Status: Ready to use
+- Fix existing page to connect to database
+
+### TIER 2: Dashboard & Forms
 
 **04-jobs-dashboard.md** ⭐⭐
 - Route: `/dashboard/jobs`
 - Time: 3-4 hours
 - Status: Ready to use
-- Copy entire file into Lovable to build Jobs Dashboard
+
+**06-post-job-form.md** ⭐⭐
+- Route: `/post-job`
+- Time: 3-4 hours
+- Status: Ready to use
+- Create form for users to submit jobs
 
 ---
 
@@ -43,13 +51,12 @@
 lovable/prompts/
 ├── README.md                      (this file)
 ├── 01-event-detail-page.md       (TIER 1 - Critical)
-├── 02-job-detail-page.md         (TIER 1 - Critical)
+├── 02-job-detail-page.md         (TIER 1 - Critical)  
 ├── 03-perk-detail-page.md        (TIER 1 - Critical)
-├── 04-jobs-dashboard.md          (TIER 2 - High priority)
-└── archive/                       (old prompt versions)
-    ├── jobs-dashboard.md
-    ├── jobs-dashboard-simple.md
-    └── JOBS-DASHBOARD-IMPLEMENTATION-PROMPT.md
+├── 04-jobs-dashboard.md          (TIER 2 - High)
+├── 05-jobs-listing-page.md       (TIER 1 - Critical)
+├── 06-post-job-form.md           (TIER 2 - High)
+└── archive/                       (old versions)
 ```
 
 ---
@@ -60,7 +67,13 @@ lovable/prompts/
 Navigate to your Lovable workspace
 
 ### Step 2: Choose a Prompt
-Start with `01-event-detail-page.md` (highest priority)
+**Recommended order:**
+1. Start with `01-event-detail-page.md`
+2. Then `02-job-detail-page.md`
+3. Then `03-perk-detail-page.md`
+4. Then `05-jobs-listing-page.md`
+5. Then `04-jobs-dashboard.md`
+6. Then `06-post-job-form.md`
 
 ### Step 3: Copy Entire File
 Open the prompt file and copy all contents (Ctrl+A, Ctrl+C)
@@ -81,12 +94,31 @@ Repeat with next numbered prompt
 
 ## ✅ Implementation Checklist
 
+**TIER 1 - Critical (Do First)**
 - [ ] 01-event-detail-page.md
 - [ ] 02-job-detail-page.md
 - [ ] 03-perk-detail-page.md
-- [ ] 04-jobs-dashboard.md
+- [ ] 05-jobs-listing-page.md
 
-**Total Time**: 9-13 hours for all 4 pages
+**TIER 2 - High Priority (Do Next)**
+- [ ] 04-jobs-dashboard.md
+- [ ] 06-post-job-form.md
+
+**Total Time**: 14-19 hours for all 6 prompts
+
+---
+
+## 📝 What's Next?
+
+See `../WHAT-NEEDS-DESIGN.md` for complete list of 31 pages that need design.
+
+**Upcoming prompts** (not yet created):
+- 07-events-listing-page.md
+- 08-perks-listing-page.md
+- 09-post-event-form.md
+- 10-post-perk-form.md
+- 11-settings-dashboard.md
+- 12-perks-dashboard.md
 
 ---
 
@@ -105,24 +137,11 @@ All prompts are:
 
 - **Master Plan**: `../LOVABLE-BUILD-PLAN.md`
 - **Quick Reference**: `../PROMPTS-INDEX.md`
+- **What Needs Design**: `../WHAT-NEEDS-DESIGN.md`
 - **Database Schema**: `../../supabase/migrations/`
 - **TypeScript Types**: `../../src/integrations/supabase/types.ts`
 
 ---
 
-## 📝 Notes
-
-**Archive Folder**:
-- Contains older prompt versions and drafts
-- Safe to delete if needed
-- Kept for reference only
-
-**Numbering System**:
-- 01-03: TIER 1 (Critical - do first)
-- 04+: TIER 2 (High priority - do next)
-- Future prompts will be numbered 05, 06, etc.
-
----
-
 **Last Updated**: October 21, 2025
-**Status**: 4 prompts ready, organized by priority
+**Status**: 6 prompts ready, organized by priority

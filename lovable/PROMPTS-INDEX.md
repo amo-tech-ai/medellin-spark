@@ -84,8 +84,41 @@
 
 ---
 
-### 5. Settings Dashboard
-📄 **File:** Create new prompt (see build plan)
+## Listing Pages & Forms (TIER 1 CONTINUED)
+
+### 5. Jobs Listing Page
+📄 **File:** `prompts/05-jobs-listing-page.md`
+**Route:** `/jobs`
+**Time:** 2-3 hours
+**Priority:** ⭐⭐⭐ Critical
+
+**What it builds:**
+- Browse all jobs with search and filters
+- Clickable job cards linking to detail page
+- Real-time search by title/company/skills
+- Category filters (Engineering, Product, etc.)
+- Loading and empty states
+
+---
+
+### 6. Post Job Form
+📄 **File:** `prompts/06-post-job-form.md`
+**Route:** `/post-job`
+**Time:** 3-4 hours
+**Priority:** ⭐⭐ High
+
+**What it builds:**
+- Complete job posting form
+- Company info, job details, compensation
+- Validation and preview
+- Submit to database with approval workflow
+
+---
+
+## Dashboard Pages (TIER 2)
+
+### 7. Settings Dashboard
+📄 **File:** Create new prompt (see WHAT-NEEDS-DESIGN.md)
 **Route:** `/dashboard/settings`
 **Time:** 2-3 hours
 **Priority:** ⭐ Medium
@@ -98,8 +131,8 @@
 
 ---
 
-### 6. Perks Dashboard
-📄 **File:** Create new prompt (see build plan)
+### 8. Perks Dashboard
+📄 **File:** Create new prompt (see WHAT-NEEDS-DESIGN.md)
 **Route:** `/dashboard/perks`
 **Time:** 3-4 hours
 **Priority:** ⭐ Medium
@@ -195,15 +228,17 @@ All prompts reference:
 
 ## Implementation Order
 
-### Week 1: Detail Pages
+### Week 1: Detail Pages & Listings
 1. Event Detail (`prompts/01-event-detail-page.md`)
 2. Job Detail (`prompts/02-job-detail-page.md`)
 3. Perk Detail (`prompts/03-perk-detail-page.md`)
+4. Jobs Listing (`prompts/05-jobs-listing-page.md`)
 
-### Week 2: Dashboard Expansion
-4. Jobs Dashboard (`prompts/04-jobs-dashboard.md`)
-5. Settings Dashboard (create prompt)
-6. Dashboard improvements
+### Week 2: Dashboard & Forms
+5. Jobs Dashboard (`prompts/04-jobs-dashboard.md`)
+6. Post Job Form (`prompts/06-post-job-form.md`)
+7. Settings Dashboard (create prompt)
+8. Dashboard improvements
 
 ### Week 3: Polish
 7. Perks Dashboard (create prompt)
