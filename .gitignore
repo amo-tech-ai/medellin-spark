@@ -12,6 +12,18 @@ dist
 dist-ssr
 *.local
 
+# Environment variables
+# .env with VITE_* only is safe for Lovable (committed)
+# All other env files with secrets must be ignored
+.env.local
+.env.*.local
+.env.backup*
+.env.corrupted
+.env.admin
+.env.production
+.env.development
+.env.secret*
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -22,3 +34,28 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+.mcp.json
+.claude/
+.cursor/
+.playwright-mcp/
+
+# Development and testing directories
+data/
+playwright-report/
+presentation-ai/
+test-results/
+tests/
+
+# Temporary files and backups
+backups/
+*.patch
+*-backup.patch
+local-changes-backup.patch
+SESSION-COMPLETE.txt
+AUDIT-COMPLETE.txt
+DOCS-CLEAN.txt
+*-COMPLETE.md
+*-STATUS.md
+
+# Obsidian workspace files (note-taking app)
+**/.obsidian/

@@ -1,8 +1,12 @@
-import { useState } from "react";
-import { MessageSquare, Sparkles, History, Plus } from "lucide-react";
+import { useState, useEffect } from "react";
+import { MessageSquare, Sparkles, History, Plus, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { apiClient, ApiError } from "@/lib/apiClient";
 
 interface Message {
   id: string;
@@ -10,40 +14,32 @@ interface Message {
   content: string;
   timestamp: Date;
   actions?: React.ReactNode;
+  suggestions?: string[];
 }
 
 const PitchDeckWizard = () => {
+  const supabase = useSupabaseClient();
+  const user = useUser();
+  const navigate = useNavigate();
+
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
       role: "assistant",
-      content: "Hi! I'm your AI pitch deck assistant. I'll help you create a professional investor presentation in about 10 minutes through natural conversation.\n\nBefore we start, choose an option:",
+      content: "Hi! I'm Claude, your AI pitch deck assistant. I'll help you create a professional investor presentation through natural conversation.\n\nTell me about your startup, and I'll ask focused questions to build your deck!",
       timestamp: new Date(),
-      actions: (
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
-          <QuickActionCard
-            icon="📝"
-            title="Use Wizard Data"
-            description="Pre-fill from your startup wizard"
-          />
-          <QuickActionCard
-            icon="✨"
-            title="Start Fresh"
-            description="Tell me everything from scratch"
-          />
-          <QuickActionCard
-            icon="📤"
-            title="Upload Deck"
-            description="Improve an existing presentation"
-          />
-        </div>
-      ),
     },
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
 
-  const handleSend = () => {
+  // Claude conversation state
+  const [conversationId, setConversationId] = useState<string | null>(null);
+  const [completeness, setCompleteness] = useState(0);
+  const [collectedData, setCollectedData] = useState<Record<string, unknown>>({});
+  const [readyToGenerate, setReadyToGenerate] = useState(false);
+
+  const handleSend = async () => {
     if (!inputValue.trim()) return;
 
     // Add user message
@@ -55,26 +51,111 @@ const PitchDeckWizard = () => {
     };
 
     setMessages((prev) => [...prev, userMessage]);
+    const userInput = inputValue;
     setInputValue("");
-    
-    // Simulate AI typing
+
+    // Show typing indicator
     setIsTyping(true);
-    setTimeout(() => {
+
+    try {
+      // Call Claude AI Edge Function using central API client
+      const data = await apiClient.post('/pitch-deck-assistant', {
+        message: userInput,
+        conversation_id: conversationId,
+        profile_id: user?.id || '00000000-0000-0000-0000-000000000000', // Dev mode: test UUID
+      }, {
+        requiresAuth: false, // Dev mode: disable auth requirement
+      });
+
+      // Update conversation state
+      if (data.conversation_id) {
+        setConversationId(data.conversation_id);
+      }
+      if (data.completeness !== undefined) {
+        setCompleteness(data.completeness);
+      }
+      if (data.collected_data) {
+        setCollectedData(data.collected_data);
+      }
+      if (data.ready_to_generate !== undefined) {
+        setReadyToGenerate(data.ready_to_generate);
+      }
+
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: "Great! I'd love to hear more about your startup. Let's start with the basics:\n\n• What's the name of your startup?\n• What problem are you solving?\n• Who's your target customer?\n\nYou can answer in a paragraph or bullet points - I'm flexible!",
+        content: data.message || "I'm having trouble responding. Please try again.",
         timestamp: new Date(),
+        suggestions: data.suggestions || [],
       };
       setMessages((prev) => [...prev, aiMessage]);
+    } catch (error: unknown) {
+      console.error("Claude API Error:", error);
+
+      if (error instanceof ApiError) {
+        if (error.status === 401) {
+          toast.error("Authentication failed. Please sign in again.");
+        } else if (error.status === 429) {
+          toast.error("Too many requests. Please wait a moment and try again.");
+        } else {
+          toast.error(error.message || "Failed to connect to AI assistant");
+        }
+      } else {
+        toast.error("Failed to connect to AI assistant");
+      }
+
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        role: "assistant",
+        content: "Sorry, I'm having trouble right now. Please try again in a moment.",
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, errorMessage]);
+    } finally {
       setIsTyping(false);
-    }, 1500);
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSend();
+    }
+  };
+
+  const handleSuggestionClick = (suggestion: string) => {
+    setInputValue(suggestion);
+  };
+
+  const handleGenerateDeck = async () => {
+    if (!readyToGenerate || !collectedData) {
+      toast.error("Please complete the conversation first");
+      return;
+    }
+
+    try {
+      toast.info("Generating your pitch deck...");
+
+      const data = await apiClient.post('/generate-pitch-deck', {
+        startup_data: collectedData,
+        profile_id: user?.id || '00000000-0000-0000-0000-000000000000', // Dev mode: test UUID
+      }, {
+        requiresAuth: false, // Dev mode: disable auth requirement
+        timeout: 60000, // 60 seconds for AI generation
+      });
+
+      if (data.presentation_id) {
+        toast.success("Deck generated successfully!");
+        navigate(`/presentations/${data.presentation_id}/view`);
+      }
+    } catch (error: unknown) {
+      console.error("Generate deck error:", error);
+
+      if (error instanceof ApiError) {
+        toast.error(error.message || "Failed to generate deck");
+      } else {
+        toast.error("Failed to generate deck");
+      }
     }
   };
 
@@ -110,45 +191,43 @@ const PitchDeckWizard = () => {
           <div className="space-y-6">
             <div>
               <h3 className="text-sm font-semibold mb-3">Progress</h3>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm">
-                  <div className="w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-medium">
-                    1
-                  </div>
-                  <span className="text-muted-foreground">Getting Started</span>
+              <div className="mb-4">
+                <div className="h-2 bg-muted rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-primary to-primary/70 transition-all duration-500"
+                    style={{ width: `${completeness}%` }}
+                  />
                 </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <div className="w-6 h-6 rounded-full bg-muted text-muted-foreground flex items-center justify-center text-xs">
-                    2
-                  </div>
-                  <span className="text-muted-foreground">Startup Basics</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <div className="w-6 h-6 rounded-full bg-muted text-muted-foreground flex items-center justify-center text-xs">
-                    3
-                  </div>
-                  <span className="text-muted-foreground">Solution</span>
-                </div>
+                <p className="text-xs text-muted-foreground mt-2 text-center">
+                  {completeness}% complete
+                </p>
               </div>
             </div>
 
             <div className="pt-4 border-t border-border">
               <h3 className="text-sm font-semibold mb-3">Data Collected</h3>
-              <div className="space-y-2 text-sm text-muted-foreground">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-muted" />
-                  <span>Company Name</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-muted" />
-                  <span>Problem Statement</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-muted" />
-                  <span>Target Customer</span>
-                </div>
+              <div className="space-y-2 text-sm">
+                <DataItem label="Company Name" value={collectedData?.company_name} />
+                <DataItem label="Industry" value={collectedData?.industry} />
+                <DataItem label="Problem" value={collectedData?.problem} />
+                <DataItem label="Solution" value={collectedData?.solution} />
+                <DataItem label="Target Market" value={collectedData?.target_market} />
+                <DataItem label="Business Model" value={collectedData?.business_model} />
               </div>
             </div>
+
+            {readyToGenerate && (
+              <div className="pt-4 border-t border-border">
+                <Button
+                  onClick={handleGenerateDeck}
+                  className="w-full"
+                  size="lg"
+                >
+                  <Rocket className="w-4 h-4 mr-2" />
+                  Generate Deck
+                </Button>
+              </div>
+            )}
           </div>
         </aside>
 
@@ -162,7 +241,12 @@ const PitchDeckWizard = () => {
                   className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   {message.role === "assistant" ? (
-                    <AIMessage content={message.content} timestamp={message.timestamp}>
+                    <AIMessage
+                      content={message.content}
+                      timestamp={message.timestamp}
+                      suggestions={message.suggestions}
+                      onSuggestionClick={handleSuggestionClick}
+                    >
                       {message.actions}
                     </AIMessage>
                   ) : (
@@ -222,7 +306,19 @@ const PitchDeckWizard = () => {
 };
 
 // AI Message Component
-const AIMessage = ({ content, timestamp, children }: { content: string; timestamp: Date; children?: React.ReactNode }) => {
+const AIMessage = ({
+  content,
+  timestamp,
+  children,
+  suggestions,
+  onSuggestionClick,
+}: {
+  content: string;
+  timestamp: Date;
+  children?: React.ReactNode;
+  suggestions?: string[];
+  onSuggestionClick?: (suggestion: string) => void;
+}) => {
   return (
     <div className="flex items-start gap-3 max-w-[80%]">
       <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center flex-shrink-0">
@@ -240,6 +336,24 @@ const AIMessage = ({ content, timestamp, children }: { content: string; timestam
             {content}
           </div>
         </div>
+
+        {/* Suggestion Buttons */}
+        {suggestions && suggestions.length > 0 && (
+          <div className="flex flex-wrap gap-2 mt-3">
+            {suggestions.map((suggestion, idx) => (
+              <Button
+                key={idx}
+                variant="outline"
+                size="sm"
+                className="text-xs rounded-full border-primary/20 hover:bg-primary/10 hover:border-primary"
+                onClick={() => onSuggestionClick?.(suggestion)}
+              >
+                {suggestion}
+              </Button>
+            ))}
+          </div>
+        )}
+
         {children}
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="sm" className="h-7 text-xs">
@@ -291,6 +405,19 @@ const QuickActionCard = ({
       </h4>
       <p className="text-xs text-muted-foreground">{description}</p>
     </button>
+  );
+};
+
+// Data Item Component for Progress Sidebar
+const DataItem = ({ label, value }: { label: string; value?: string }) => {
+  const isFilled = value && value.trim().length > 0;
+  return (
+    <div className="flex items-center gap-2">
+      <div className={`w-2 h-2 rounded-full ${isFilled ? 'bg-green-500' : 'bg-muted'}`} />
+      <span className={isFilled ? 'text-foreground font-medium' : 'text-muted-foreground'}>
+        {label}
+      </span>
+    </div>
   );
 };
 
