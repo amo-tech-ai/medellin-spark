@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ChevronLeft, ChevronRight, Edit, Download, Share2, Presentation } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { Database } from "@/integrations/supabase/types";
+
+type Presentation = Database['public']['Tables']['presentations']['Row'];
 
 interface Slide {
   slide_no: number;
@@ -14,20 +17,10 @@ interface Slide {
   notes: string | null;
 }
 
-interface PitchDeck {
-  id: string;
-  title: string;
-  company_name: string | null;
-  description: string | null;
-  status: string;
-  created_at: string;
-  updated_at: string;
-}
-
 export function PitchDeckPreview() {
   const { deckId } = useParams<{ deckId: string }>();
   const navigate = useNavigate();
-  const [deck, setDeck] = useState<PitchDeck | null>(null);
+  const [deck, setDeck] = useState<Presentation | null>(null);
   const [slides, setSlides] = useState<Slide[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -43,9 +36,9 @@ export function PitchDeckPreview() {
     try {
       setLoading(true);
 
-      // Fetch deck details
+      // Fetch presentation details
       const { data: deckData, error: deckError } = await supabase
-        .from('pitch_decks')
+        .from('presentations')
         .select('*')
         .eq('id', deckId)
         .single();
@@ -53,19 +46,19 @@ export function PitchDeckPreview() {
       if (deckError) throw deckError;
       setDeck(deckData);
 
-      // Fetch slides
-      const { data: slidesData, error: slidesError } = await supabase
-        .from('pitch_deck_slides')
-        .select('*')
-        .eq('deck_id', deckId)
-        .order('slide_no', { ascending: true });
-
-      if (slidesError) throw slidesError;
-      setSlides(slidesData || []);
+      // Parse slides from content JSON
+      if (deckData?.content) {
+        const contentData = deckData.content as any;
+        if (Array.isArray(contentData)) {
+          setSlides(contentData);
+        } else if (contentData.slides && Array.isArray(contentData.slides)) {
+          setSlides(contentData.slides);
+        }
+      }
 
     } catch (err: any) {
-      console.error('Error loading pitch deck:', err);
-      setError(err.message || 'Failed to load pitch deck');
+      console.error('Error loading presentation:', err);
+      setError(err.message || 'Failed to load presentation');
     } finally {
       setLoading(false);
     }
@@ -147,8 +140,8 @@ export function PitchDeckPreview() {
             </Button>
             <div>
               <h1 className="font-semibold">{deck.title}</h1>
-              {deck.company_name && (
-                <p className="text-xs text-muted-foreground">{deck.company_name}</p>
+              {deck.description && (
+                <p className="text-xs text-muted-foreground">{deck.description}</p>
               )}
             </div>
           </div>
@@ -218,9 +211,9 @@ export function PitchDeckPreview() {
                   <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
                     {slide.title || slide.content?.title || `Slide ${slide.slide_no}`}
                   </h1>
-                  {deck.company_name && slide.slide_no === 1 && (
+                  {deck.description && slide.slide_no === 1 && (
                     <p className="text-xl text-muted-foreground mt-2">
-                      {deck.company_name}
+                      {deck.description}
                     </p>
                   )}
                 </div>

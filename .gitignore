@@ -63,3 +63,4 @@ DOCS-CLEAN.txt
 # Example projects (do not commit)
 coagents-starter/
 with-langgraph-js-official/
+copilotkit-langraph/
