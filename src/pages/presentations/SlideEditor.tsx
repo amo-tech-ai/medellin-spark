@@ -13,7 +13,7 @@ import { type LayoutType } from "@/types/layouts";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-interface SlideContent {
+interface EditorSlideContent {
   headline?: string;
   bullets?: string[];
   notes?: string;
@@ -22,7 +22,7 @@ interface SlideContent {
 interface Slide {
   id: string;
   title: string;
-  content: SlideContent | string;
+  content: EditorSlideContent | string;
   layout?: LayoutType;
 }
 

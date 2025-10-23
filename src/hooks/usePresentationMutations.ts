@@ -46,7 +46,7 @@ export function useCreatePresentation() {
           theme: input.theme || "mystique",
           category: input.category || "general",
           outline: input.outline || [],
-          content: input.content || {},
+          content: (input.content || {}) as any,
           status: "draft",
           slide_count: input.outline?.length || 0,
           is_public: false,
@@ -98,12 +98,19 @@ export function useUpdatePresentation() {
       const { id, ...updates } = input;
 
       // Always update last_edited_at
+      const updateData: any = {
+        ...updates,
+        last_edited_at: new Date().toISOString(),
+      };
+      
+      // Cast content to any to satisfy Supabase Json type
+      if (updates.content) {
+        updateData.content = updates.content as any;
+      }
+      
       const { data, error } = await supabase
         .from("presentations")
-        .update({
-          ...updates,
-          last_edited_at: new Date().toISOString(),
-        })
+        .update(updateData)
         .eq("id", id)
         .eq("profile_id", user.id) // Ensure user owns it
         .select()
@@ -193,7 +200,7 @@ export function useDuplicatePresentation() {
       }
 
       const { data, error } = await supabase
-        .rpc("duplicate_presentation", { presentation_id: presentationId });
+        .rpc("duplicate_presentation", { source_id: presentationId });
 
       if (error) {
         console.error("Error duplicating presentation:", error);

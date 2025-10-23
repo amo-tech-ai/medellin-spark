@@ -1,7 +1,7 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface ThumbnailPanelProps {
-  slides: Array<{ id: string; title: string; content: string }>;
+  slides: Array<{ id: string; title: string; content?: any }>;
   currentSlideIndex: number;
   onSlideClick: (index: number) => void;
 }

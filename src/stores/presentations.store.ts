@@ -60,7 +60,7 @@ export const usePresentationsStore = create<PresentationsStore>((set, get) => ({
 
       if (error) throw error;
 
-      set({ presentations: data || [], isLoading: false });
+      set({ presentations: (data || []) as Presentation[], isLoading: false });
     } catch (error) {
       console.error('Error fetching presentations:', error);
       set({
@@ -86,7 +86,7 @@ export const usePresentationsStore = create<PresentationsStore>((set, get) => ({
 
       if (error) throw error;
 
-      set({ templates: data || [], isLoading: false });
+      set({ templates: (data || []) as Template[], isLoading: false });
     } catch (error) {
       console.error('Error fetching templates:', error);
       set({
@@ -141,7 +141,7 @@ export const usePresentationsStore = create<PresentationsStore>((set, get) => ({
           theme: data.theme || 'mystique',
           language: data.language || 'en-US',
           prompt: data.prompt,
-          content: {},
+          content: {} as any,
           slide_count: 0,
           is_public: false,
           view_count: 0,
@@ -153,11 +153,11 @@ export const usePresentationsStore = create<PresentationsStore>((set, get) => ({
 
       // Add to local state
       set((state) => ({
-        presentations: [newPresentation, ...state.presentations],
+        presentations: [newPresentation as Presentation, ...state.presentations],
         isLoading: false,
       }));
 
-      return newPresentation;
+      return newPresentation as Presentation;
     } catch (error) {
       console.error('Error creating presentation:', error);
       set({
@@ -184,12 +184,19 @@ export const usePresentationsStore = create<PresentationsStore>((set, get) => ({
         throw new Error('User not authenticated');
       }
 
+      const updateData: any = {
+        ...data,
+        updated_at: new Date().toISOString(),
+      };
+      
+      // Cast content to any to satisfy Supabase Json type
+      if (data.content) {
+        updateData.content = data.content as any;
+      }
+      
       const { data: updatedPresentation, error } = await supabase
         .from('presentations')
-        .update({
-          ...data,
-          updated_at: new Date().toISOString(),
-        })
+        .update(updateData)
         .eq('id', id)
         .eq('profile_id', user.id)
         .select()
@@ -200,12 +207,12 @@ export const usePresentationsStore = create<PresentationsStore>((set, get) => ({
       // Update local state
       set((state) => ({
         presentations: state.presentations.map((p) =>
-          p.id === id ? updatedPresentation : p
+          p.id === id ? (updatedPresentation as Presentation) : p
         ),
         isLoading: false,
       }));
 
-      return updatedPresentation;
+      return updatedPresentation as Presentation;
     } catch (error) {
       console.error('Error updating presentation:', error);
       set({
@@ -241,11 +248,11 @@ export const usePresentationsStore = create<PresentationsStore>((set, get) => ({
 
       // Add to local state
       set((state) => ({
-        presentations: [newPresentation, ...state.presentations],
+        presentations: [newPresentation as Presentation, ...state.presentations],
         isLoading: false,
       }));
 
-      return newPresentation;
+      return newPresentation as Presentation;
     } catch (error) {
       console.error('Error duplicating presentation:', error);
       set({

@@ -362,36 +362,3 @@ export interface ToastMessage {
   description?: string;
   duration?: number; // ms
 }
-
-// ==================================================
-// EXPORTS
-// ==================================================
-
-export type {
-  // Main entities
-  Presentation,
-  Template,
-  PresentationCard,
-  TemplateCard,
-
-  // Component props
-  PageHeaderProps,
-  PresentationCardProps,
-  TemplateCardProps,
-  EmptyStateProps,
-  CreateNewSectionProps,
-  MyPresentationsGridProps,
-  RecommendedTemplatesSectionProps,
-
-  // API
-  PresentationStats,
-  DuplicatePresentationResponse,
-  ApiError,
-
-  // Store
-  PresentationsStore,
-
-  // Utility
-  CardAction,
-  ToastMessage,
-};
