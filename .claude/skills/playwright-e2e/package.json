@@ -1,0 +1,35 @@
+{
+  "name": "playwright-e2e-skill",
+  "version": "1.0.0",
+  "description": "E2E testing skill using Playwright MCP",
+  "main": "index.ts",
+  "scripts": {
+    "test:smoke": "npx @playwright/mcp --headless < playbooks/smoke.md",
+    "test:auth": "npx @playwright/mcp --headless < playbooks/auth.md",
+    "test:pitch-deck": "npx @playwright/mcp --headless --save-trace --save-video=1280x720 --output-dir=./test-results < playbooks/pitch-deck-wizard.md",
+    "test:all": "npm run test:smoke && npm run test:auth && npm run test:pitch-deck",
+    "test:ci": "npx @playwright/mcp --headless --no-sandbox --save-trace --output-dir=./test-results < playbooks/pitch-deck-wizard.md",
+    "examples:basic": "ts-node examples/basic-navigation.ts",
+    "examples:form": "ts-node examples/form-submission.ts",
+    "examples:full": "ts-node examples/full-journey.ts",
+    "clean": "rm -rf test-results screenshots",
+    "setup": "npm install -g @playwright/mcp@latest"
+  },
+  "keywords": [
+    "playwright",
+    "mcp",
+    "e2e",
+    "testing",
+    "automation"
+  ],
+  "author": "Medellin Spark",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@playwright/mcp": "latest"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "name": "playwright-e2e-skill",
+  "version": "1.0.0",
+  "description": "Complete E2E testing skill using Playwright MCP for event management platform",
+  "author": "Medellin Spark Team",
+  "license": "MIT",
+  "keywords": ["playwright", "e2e", "testing", "mcp", "automation"],
+  "capabilities": {
+    "browser_automation": true,
+    "screenshot_capture": true,
+    "network_monitoring": true,
+    "console_logging": true,
+    "accessibility_testing": true
+  },
+  "requirements": {
+    "mcp_server": "@playwright/mcp@latest",
+    "node_version": ">=18.0.0"
+  },
+  "playbooks": [
+    {
+      "name": "smoke",
+      "path": "playbooks/smoke.md",
+      "description": "Quick smoke test to verify app is alive"
+    },
+    {
+      "name": "auth",
+      "path": "playbooks/auth.md",
+      "description": "Complete authentication flow test"
+    },
+    {
+      "name": "pitch-deck-wizard",
+      "path": "playbooks/pitch-deck-wizard.md",
+      "description": "Full pitch deck creation journey"
+    }
+  ],
+  "examples": [
+    "examples/basic-navigation.ts",
+    "examples/form-submission.ts",
+    "examples/full-journey.ts"
+  ],
+  "ci_integration": {
+    "github_actions": ".github/workflows/e2e.yml",
+    "docker": "Dockerfile.e2e"
+  }
+}
