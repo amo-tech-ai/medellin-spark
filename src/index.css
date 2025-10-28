@@ -18,16 +18,16 @@ All colors MUST be HSL.
     --popover: 180 30% 97%;
     --popover-foreground: 0 0% 12%;
 
-    /* Main brand color - vibrant teal */
-    --primary: 176 68% 35%;
+    /* Main brand color - emerald green */
+    --primary: 166 100% 20%;
     --primary-foreground: 0 0% 100%;
 
     /* Hover states */
-    --primary-hover: 176 68% 30%;
-    --primary-dark: 176 68% 25%;
+    --primary-hover: 166 100% 18%;
+    --primary-dark: 166 100% 16%;
 
     /* Surface/card backgrounds */
-    --secondary: 179 45% 55%;
+    --secondary: 166 60% 40%;
     --secondary-foreground: 0 0% 100%;
 
     /* Subtle highlights */
@@ -49,36 +49,36 @@ All colors MUST be HSL.
     --warning: 35 80% 65%;
     --warning-foreground: 0 0% 12%;
 
-    /* CTA Accent - Vibrant Teal for primary actions */
-    --cta-accent: 176 68% 35%;
-    --cta-accent-hover: 176 68% 30%;
+    /* CTA Accent - Emerald Green for primary actions */
+    --cta-accent: 166 100% 20%;
+    --cta-accent-hover: 166 100% 18%;
     --cta-accent-foreground: 0 0% 100%;
 
     --border: 180 15% 88%;
     --input: 180 15% 88%;
-    --ring: 176 68% 35%;
+    --ring: 166 100% 20%;
 
     --radius: 0.5rem;
 
-    /* Teal-based gradients */
-    --gradient-primary: linear-gradient(90deg, hsl(176, 68%, 35%), hsl(176, 68%, 40%));
-    --gradient-hero: linear-gradient(135deg, hsl(179, 45%, 55%), hsl(176, 68%, 35%));
-    --gradient-cta: linear-gradient(135deg, hsl(176, 68%, 40%), hsl(176, 68%, 35%));
+    /* Emerald green gradients */
+    --gradient-primary: linear-gradient(90deg, hsl(166, 100%, 20%), hsl(166, 100%, 25%));
+    --gradient-hero: linear-gradient(135deg, hsl(166, 60%, 40%), hsl(166, 100%, 20%));
+    --gradient-cta: linear-gradient(135deg, hsl(166, 100%, 25%), hsl(166, 100%, 20%));
     
     --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.04);
     --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04);
     --shadow-card-hover: 0 6px 16px rgba(0, 0, 0, 0.08);
-    --shadow-glow: 0 8px 24px rgba(29, 155, 146, 0.25);
+    --shadow-glow: 0 8px 24px rgba(0, 103, 79, 0.25);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 180 25% 97%;
     --sidebar-foreground: 180 20% 25%;
-    --sidebar-primary: 176 68% 35%;
+    --sidebar-primary: 166 100% 20%;
     --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 180 25% 92%;
     --sidebar-accent-foreground: 180 20% 25%;
     --sidebar-border: 180 15% 88%;
-    --sidebar-ring: 176 68% 35%;
+    --sidebar-ring: 166 100% 20%;
   }
 
   .dark {
@@ -91,14 +91,14 @@ All colors MUST be HSL.
     --popover: 180 10% 12%;
     --popover-foreground: 0 0% 98%;
 
-    /* Dark mode teal */
-    --primary: 176 60% 45%;
+    /* Dark mode emerald green */
+    --primary: 166 80% 35%;
     --primary-foreground: 0 0% 100%;
     
-    --primary-hover: 176 60% 40%;
+    --primary-hover: 166 80% 30%;
 
     /* Dark mode surfaces */
-    --secondary: 179 40% 40%;
+    --secondary: 166 60% 45%;
     --secondary-foreground: 0 0% 98%;
 
     --muted: 180 5% 15%;
@@ -117,23 +117,23 @@ All colors MUST be HSL.
     --warning: 35 75% 60%;
     --warning-foreground: 0 0% 9%;
     
-    /* CTA Accent - Dark mode teal */
-    --cta-accent: 176 60% 45%;
-    --cta-accent-hover: 176 60% 40%;
+    /* CTA Accent - Dark mode emerald green */
+    --cta-accent: 166 80% 35%;
+    --cta-accent-hover: 166 80% 30%;
     --cta-accent-foreground: 0 0% 100%;
 
     --border: 180 5% 20%;
     --input: 180 5% 20%;
-    --ring: 176 60% 45%;
+    --ring: 166 80% 35%;
     
     --sidebar-background: 180 10% 10%;
     --sidebar-foreground: 180 10% 95%;
-    --sidebar-primary: 176 60% 45%;
+    --sidebar-primary: 166 80% 35%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 180 5% 16%;
     --sidebar-accent-foreground: 180 10% 95%;
     --sidebar-border: 180 5% 20%;
-    --sidebar-ring: 176 60% 45%;
+    --sidebar-ring: 166 80% 35%;
   }
 }
 
