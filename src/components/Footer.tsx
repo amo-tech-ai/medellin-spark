@@ -34,28 +34,28 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-secondary border-t border-border mt-24">
+    <footer className="bg-primary text-primary-foreground border-t border-primary-foreground/20 mt-24">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center">
                 <span className="text-primary-foreground font-bold text-sm">M</span>
               </div>
               <span className="font-bold text-lg">Medellin AI</span>
             </Link>
-            <p className="text-muted-foreground text-sm mb-4 max-w-xs">
+            <p className="text-primary-foreground/80 text-sm mb-4 max-w-xs">
               Building the future of AI in Medellin through community, education, and innovation.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="text-muted-foreground hover:text-primary transition-smooth">
+              <a href="#" className="text-primary-foreground/70 hover:text-primary-foreground transition-smooth">
                 <Twitter size={20} />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-smooth">
+              <a href="#" className="text-primary-foreground/70 hover:text-primary-foreground transition-smooth">
                 <Linkedin size={20} />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-smooth">
+              <a href="#" className="text-primary-foreground/70 hover:text-primary-foreground transition-smooth">
                 <Github size={20} />
               </a>
             </div>
@@ -69,7 +69,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link
                     to={link.path}
-                    className="text-sm text-muted-foreground hover:text-primary transition-smooth"
+                    className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-smooth"
                   >
                     {link.name}
                   </Link>
@@ -86,7 +86,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link
                     to={link.path}
-                    className="text-sm text-muted-foreground hover:text-primary transition-smooth"
+                    className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-smooth"
                   >
                     {link.name}
                   </Link>
@@ -103,7 +103,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <a
                     href={link.path}
-                    className="text-sm text-muted-foreground hover:text-primary transition-smooth"
+                    className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-smooth"
                   >
                     {link.name}
                   </a>
@@ -114,8 +114,8 @@ const Footer = () => {
         </div>
 
         {/* Copyright */}
-        <div className="mt-12 pt-8 border-t border-border text-center">
-          <p className="text-sm text-muted-foreground">
+        <div className="mt-12 pt-8 border-t border-primary-foreground/20 text-center">
+          <p className="text-sm text-primary-foreground/70">
             © 2025 Medellin AI. All rights reserved.
           </p>
         </div>

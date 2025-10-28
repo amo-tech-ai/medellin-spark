@@ -71,14 +71,14 @@ const Home = () => {
       </section>
 
       {/* Choose Your Path */}
-      <section className="bg-secondary py-20">
+      <section className="bg-primary text-primary-foreground py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <div className="inline-block mb-4 px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary">
+            <div className="inline-block mb-4 px-4 py-2 bg-white/20 rounded-full text-sm font-medium text-primary-foreground">
               Get Started
             </div>
-            <h2 className="mb-4">Choose your path</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <h2 className="mb-4 text-primary-foreground">Choose your path</h2>
+            <p className="text-primary-foreground/80 max-w-2xl mx-auto">
               Whether you're just starting or ready to scale, we have resources tailored to your journey
             </p>
           </div>
