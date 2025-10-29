@@ -1,26 +1,11 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "./useAuth";
-import { Database } from "@/integrations/supabase/types";
-
-// Use Supabase-generated type
-export type Event = Database['public']['Tables']['events']['Row'] & {
-  is_registered?: boolean;
-};
-
-export interface EventRegistration {
-  id: string;
-  profile_id: string;
-  event_id: string;
-  status: "pending" | "confirmed" | "cancelled" | "attended" | "no_show";
-  created_at: string;
-  check_in_time: string | null;
-  attended: boolean;
-}
+import type { Event } from "@/types/events";
 
 /**
- * Hook to fetch all active events
- *
+ * Hook to fetch all published events with optional registration status
+ * 
  * @returns React Query result with events data
  */
 export function useEvents() {
@@ -29,15 +14,17 @@ export function useEvents() {
   return useQuery({
     queryKey: ["events", user?.id],
     queryFn: async () => {
-      // Fetch all active events (published status)
+      // Fetch all published events (not deleted)
       const { data: events, error } = await supabase
         .from("events")
         .select("*")
         .eq("status", "published")
-        .order("event_date", { ascending: true });
+        .is("deleted_at", null)
+        .order("event_date", { ascending: true })
+        .limit(100);
 
       if (error) {
-        console.error("Error fetching events:", error);
+        console.error("[useEvents] Error fetching events:", error);
         throw error;
       }
 
@@ -45,7 +32,7 @@ export function useEvents() {
       if (user?.id) {
         const { data: registrations } = await supabase
           .from("registrations")
-          .select("event_id, status")
+          .select("event_id")
           .eq("profile_id", user.id)
           .in("status", ["confirmed", "attended"]);
 
@@ -56,10 +43,10 @@ export function useEvents() {
         return (events ?? []).map((event) => ({
           ...event,
           is_registered: registeredEventIds.has(event.id),
-        })) as Event[];
+        }));
       }
 
-      return (events ?? []) as Event[];
+      return events ?? [];
     },
     staleTime: 1000 * 60 * 5, // 5 minutes
     refetchOnWindowFocus: true,
@@ -68,22 +55,19 @@ export function useEvents() {
 
 /**
  * Hook to fetch events the user is registered for
+ * Requires authentication
  */
 export function useMyEvents() {
   const { user } = useAuth();
 
-  // DEV MODE: Use existing test profile to enable Supabase query testing
-  const MOCK_USER_ID = 'b67c1712-a7dd-49fe-bab1-dd5cead12d3e'; // Test Detective profile
-  const userId = import.meta.env.DEV && !user?.id ? MOCK_USER_ID : user?.id;
-
   return useQuery({
-    queryKey: ["my-events", userId],
+    queryKey: ["my-events", user?.id],
     queryFn: async () => {
-      if (!userId) {
+      if (!user?.id) {
         return [];
       }
 
-      console.log('[useMyEvents] Fetching events for user:', userId, import.meta.env.DEV ? '(DEV MODE)' : '');
+      console.log('[useMyEvents] Fetching events for user:', user.id);
 
       const { data, error } = await supabase
         .from("registrations")
@@ -104,7 +88,7 @@ export function useMyEvents() {
           )
         `
         )
-        .eq("profile_id", userId)
+        .eq("profile_id", user.id)
         .in("status", ["confirmed", "attended"])
         .order("created_at", { ascending: false });
 
@@ -116,7 +100,7 @@ export function useMyEvents() {
       console.log('[useMyEvents] Successfully fetched events:', data?.length || 0);
       return data ?? [];
     },
-    enabled: !!userId,
+    enabled: !!user?.id,
     staleTime: 1000 * 60, // 1 minute
   });
 }
