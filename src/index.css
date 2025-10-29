@@ -41,8 +41,8 @@ All colors MUST be HSL.
     --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Success state - soft green */
-    --success: 145 60% 35%;
+    /* Success state - deep blue variant */
+    --success: 201 60% 40%;
     --success-foreground: 0 0% 100%;
 
     /* Warning state - soft amber */
@@ -111,7 +111,7 @@ All colors MUST be HSL.
     --destructive: 0 62% 55%;
     --destructive-foreground: 0 0% 98%;
     
-    --success: 145 40% 50%;
+    --success: 201 60% 45%;
     --success-foreground: 0 0% 98%;
     
     --warning: 35 75% 60%;
