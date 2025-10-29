@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { analytics } from '@/lib/analytics';
 import type { Event } from '@/types/events';
 
 export const useEventDetail = (eventId?: string) => {

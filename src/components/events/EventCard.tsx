@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import { Calendar, MapPin, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Calendar, MapPin, Users } from "lucide-react";
+import { analytics } from "@/lib/analytics";
 import type { Event } from "@/types/events";
 import { format } from "date-fns";
 
@@ -12,6 +13,14 @@ interface EventCardProps {
 
 export function EventCard({ event }: EventCardProps) {
   const eventDate = new Date(event.event_date);
+
+  const handleClick = () => {
+    analytics.track('Event Card Clicked', {
+      eventId: event.id,
+      eventTitle: event.title,
+      eventDate: event.event_date,
+    });
+  };
   const formattedDate = format(eventDate, "MMM d, yyyy");
   const formattedTime = format(eventDate, "h:mm a");
   
@@ -95,6 +104,7 @@ export function EventCard({ event }: EventCardProps) {
           asChild 
           className="w-full"
           disabled={spotsLeft === 0}
+          onClick={handleClick}
         >
           <Link to={`/events/${event.id}`}>
             {spotsLeft === 0 ? 'Event Full' : 'View Details'}

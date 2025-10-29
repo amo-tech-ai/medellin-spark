@@ -1,7 +1,7 @@
+import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Calendar, MapPin, Users, ChevronRight } from "lucide-react";
@@ -9,6 +9,7 @@ import { useEventDetail } from "@/hooks/useEventDetail";
 import { useEventRegistration } from "@/hooks/useEventRegistration";
 import { RegistrationButton } from "@/components/events/RegistrationButton";
 import { EventsErrorState } from "@/components/events/EventsErrorState";
+import { analytics } from "@/lib/analytics";
 import { format } from "date-fns";
 
 const EventDetail = () => {
@@ -20,6 +21,16 @@ const EventDetail = () => {
     register,
     cancel,
   } = useEventRegistration(eventId);
+
+  // Track page view when event loads
+  useEffect(() => {
+    if (event) {
+      analytics.page('Event Detail', {
+        eventId: event.id,
+        eventTitle: event.title,
+      });
+    }
+  }, [event]);
 
   if (isLoading) {
     return (

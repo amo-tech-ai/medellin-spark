@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import { useEvents } from "@/hooks/useEvents";
+import { analytics } from "@/lib/analytics";
 import { EventCard } from "@/components/events/EventCard";
 import { EventCardSkeleton } from "@/components/events/EventCardSkeleton";
 import { EventsEmptyState } from "@/components/events/EventsEmptyState";
@@ -8,6 +10,11 @@ import { FilterGroup } from "@/components/ui/filter-buttons";
 
 const Events = () => {
   const { data: events, isLoading, error, refetch } = useEvents();
+
+  // Track page view
+  useEffect(() => {
+    analytics.page('Events List');
+  }, []);
   const [activeFilter, setActiveFilter] = useState("all");
   const [activeTab, setActiveTab] = useState("upcoming");
 

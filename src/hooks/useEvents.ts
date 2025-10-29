@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { analytics } from "@/lib/analytics";
 import { useAuth } from "./useAuth";
 import type { Event } from "@/types/events";
 
@@ -25,8 +26,11 @@ export function useEvents() {
 
       if (error) {
         console.error("[useEvents] Error fetching events:", error);
+        analytics.track('Events List Load Failed', { error: error.message });
         throw error;
       }
+
+      analytics.track('Events List Loaded', { count: events?.length || 0 });
 
       // If user is logged in, check which events they're registered for
       if (user?.id) {
@@ -115,8 +119,11 @@ export function useRegisterForEvent() {
   return useMutation({
     mutationFn: async (eventId: string) => {
       if (!user?.id) {
+        analytics.track('Registration Failed', { eventId, reason: 'Not authenticated' });
         throw new Error("Must be logged in to register for events");
       }
+
+      analytics.track('Registration Started', { eventId, userId: user.id });
 
       const { data, error } = await supabase
         .from("registrations")
@@ -128,7 +135,20 @@ export function useRegisterForEvent() {
         .select()
         .single();
 
-      if (error) throw error;
+      if (error) {
+        analytics.track('Registration Failed', { 
+          eventId, 
+          userId: user.id,
+          error: error.message 
+        });
+        throw error;
+      }
+
+      analytics.track('Registration Completed', { 
+        eventId, 
+        userId: user.id,
+        timestamp: new Date().toISOString() 
+      });
       return data;
     },
     onSuccess: () => {
@@ -150,8 +170,11 @@ export function useCancelEventRegistration() {
   return useMutation({
     mutationFn: async (eventId: string) => {
       if (!user?.id) {
+        analytics.track('Registration Cancellation Failed', { eventId, reason: 'Not authenticated' });
         throw new Error("Must be logged in to cancel registration");
       }
+
+      analytics.track('Registration Cancellation Started', { eventId, userId: user.id });
 
       const { error } = await supabase
         .from("registrations")
@@ -159,7 +182,16 @@ export function useCancelEventRegistration() {
         .eq("profile_id", user.id)
         .eq("event_id", eventId);
 
-      if (error) throw error;
+      if (error) {
+        analytics.track('Registration Cancellation Failed', { 
+          eventId, 
+          userId: user.id,
+          error: error.message 
+        });
+        throw error;
+      }
+
+      analytics.track('Registration Cancelled', { eventId, userId: user.id });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["events"] });
