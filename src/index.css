@@ -8,31 +8,31 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Medellín AI Teal Palette - Brighter & Balanced */
+    /* Medellín AI Deep Blue Palette */
     --background: 40 40% 98%;
     --foreground: 0 0% 12%;
 
-    --card: 180 30% 97%;
+    --card: 200 30% 97%;
     --card-foreground: 0 0% 12%;
 
-    --popover: 180 30% 97%;
+    --popover: 200 30% 97%;
     --popover-foreground: 0 0% 12%;
 
-    /* Main brand color - emerald green */
-    --primary: 166 100% 20%;
+    /* Main brand color - deep blue */
+    --primary: 201 100% 16%;
     --primary-foreground: 0 0% 100%;
 
     /* Hover states */
-    --primary-hover: 166 100% 18%;
-    --primary-dark: 166 100% 16%;
+    --primary-hover: 201 100% 14%;
+    --primary-dark: 201 100% 12%;
 
     /* Surface/card backgrounds */
-    --secondary: 166 60% 40%;
+    --secondary: 201 60% 35%;
     --secondary-foreground: 0 0% 100%;
 
     /* Subtle highlights */
-    --muted: 180 25% 95%;
-    --muted-foreground: 180 10% 45%;
+    --muted: 200 25% 95%;
+    --muted-foreground: 200 10% 45%;
 
     /* Accent for warm touches */
     --accent: 35 70% 80%;
@@ -49,60 +49,60 @@ All colors MUST be HSL.
     --warning: 35 80% 65%;
     --warning-foreground: 0 0% 12%;
 
-    /* CTA Accent - Emerald Green for primary actions */
-    --cta-accent: 166 100% 20%;
-    --cta-accent-hover: 166 100% 18%;
+    /* CTA Accent - Deep Blue for primary actions */
+    --cta-accent: 201 100% 16%;
+    --cta-accent-hover: 201 100% 14%;
     --cta-accent-foreground: 0 0% 100%;
 
-    --border: 180 15% 88%;
-    --input: 180 15% 88%;
-    --ring: 166 100% 20%;
+    --border: 200 15% 88%;
+    --input: 200 15% 88%;
+    --ring: 201 100% 16%;
 
     --radius: 0.5rem;
 
-    /* Emerald green gradients */
-    --gradient-primary: linear-gradient(90deg, hsl(166, 100%, 20%), hsl(166, 100%, 25%));
-    --gradient-hero: linear-gradient(135deg, hsl(166, 60%, 40%), hsl(166, 100%, 20%));
-    --gradient-cta: linear-gradient(135deg, hsl(166, 100%, 25%), hsl(166, 100%, 20%));
+    /* Deep blue gradients */
+    --gradient-primary: linear-gradient(90deg, hsl(201, 100%, 16%), hsl(201, 100%, 22%));
+    --gradient-hero: linear-gradient(135deg, hsl(201, 60%, 35%), hsl(201, 100%, 16%));
+    --gradient-cta: linear-gradient(135deg, hsl(201, 100%, 22%), hsl(201, 100%, 16%));
     
     --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.04);
     --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04);
     --shadow-card-hover: 0 6px 16px rgba(0, 0, 0, 0.08);
-    --shadow-glow: 0 8px 24px rgba(0, 103, 79, 0.25);
+    --shadow-glow: 0 8px 24px rgba(0, 51, 79, 0.25);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-    --sidebar-background: 180 25% 97%;
-    --sidebar-foreground: 180 20% 25%;
-    --sidebar-primary: 166 100% 20%;
+    --sidebar-background: 200 25% 97%;
+    --sidebar-foreground: 200 20% 25%;
+    --sidebar-primary: 201 100% 16%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 180 25% 92%;
-    --sidebar-accent-foreground: 180 20% 25%;
-    --sidebar-border: 180 15% 88%;
-    --sidebar-ring: 166 100% 20%;
+    --sidebar-accent: 200 25% 92%;
+    --sidebar-accent-foreground: 200 20% 25%;
+    --sidebar-border: 200 15% 88%;
+    --sidebar-ring: 201 100% 16%;
   }
 
   .dark {
     --background: 0 0% 9%;
     --foreground: 0 0% 98%;
 
-    --card: 180 10% 12%;
+    --card: 200 10% 12%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 180 10% 12%;
+    --popover: 200 10% 12%;
     --popover-foreground: 0 0% 98%;
 
-    /* Dark mode emerald green */
-    --primary: 166 80% 35%;
+    /* Dark mode deep blue */
+    --primary: 201 80% 30%;
     --primary-foreground: 0 0% 100%;
     
-    --primary-hover: 166 80% 30%;
+    --primary-hover: 201 80% 25%;
 
     /* Dark mode surfaces */
-    --secondary: 166 60% 45%;
+    --secondary: 201 60% 40%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 180 5% 15%;
-    --muted-foreground: 180 10% 65%;
+    --muted: 200 5% 15%;
+    --muted-foreground: 200 10% 65%;
 
     /* Dark mode accent */
     --accent: 35 60% 65%;
@@ -117,23 +117,23 @@ All colors MUST be HSL.
     --warning: 35 75% 60%;
     --warning-foreground: 0 0% 9%;
     
-    /* CTA Accent - Dark mode emerald green */
-    --cta-accent: 166 80% 35%;
-    --cta-accent-hover: 166 80% 30%;
+    /* CTA Accent - Dark mode deep blue */
+    --cta-accent: 201 80% 30%;
+    --cta-accent-hover: 201 80% 25%;
     --cta-accent-foreground: 0 0% 100%;
 
-    --border: 180 5% 20%;
-    --input: 180 5% 20%;
-    --ring: 166 80% 35%;
+    --border: 200 5% 20%;
+    --input: 200 5% 20%;
+    --ring: 201 80% 30%;
     
-    --sidebar-background: 180 10% 10%;
-    --sidebar-foreground: 180 10% 95%;
-    --sidebar-primary: 166 80% 35%;
+    --sidebar-background: 200 10% 10%;
+    --sidebar-foreground: 200 10% 95%;
+    --sidebar-primary: 201 80% 30%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 180 5% 16%;
-    --sidebar-accent-foreground: 180 10% 95%;
-    --sidebar-border: 180 5% 20%;
-    --sidebar-ring: 166 80% 35%;
+    --sidebar-accent: 200 5% 16%;
+    --sidebar-accent-foreground: 200 10% 95%;
+    --sidebar-border: 200 5% 20%;
+    --sidebar-ring: 201 80% 30%;
   }
 }
 
