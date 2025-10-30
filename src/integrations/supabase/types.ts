@@ -67,30 +67,49 @@ export type Database = {
       }
       candidate_skills: {
         Row: {
-          candidate_id: string
+          category: string | null
           created_at: string
-          proficiency_level: string | null
+          endorsements: number | null
+          id: string
+          level: number
+          profile_id: string
+          proof: string | null
           skill_name: string
         }
         Insert: {
-          candidate_id: string
+          category?: string | null
           created_at?: string
-          proficiency_level?: string | null
+          endorsements?: number | null
+          id?: string
+          level: number
+          profile_id: string
+          proof?: string | null
           skill_name: string
         }
         Update: {
-          candidate_id?: string
+          category?: string | null
           created_at?: string
-          proficiency_level?: string | null
+          endorsements?: number | null
+          id?: string
+          level?: number
+          profile_id?: string
+          proof?: string | null
           skill_name?: string
         }
         Relationships: [
           {
-            foreignKeyName: "candidate_skills_candidate_id_fkey"
-            columns: ["candidate_id"]
+            foreignKeyName: "candidate_skills_profile_id_fkey"
+            columns: ["profile_id"]
             isOneToOne: false
-            referencedRelation: "candidates"
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "candidate_skills_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "user_profile"
+            referencedColumns: ["profile_id"]
           },
         ]
       }
@@ -138,6 +157,13 @@ export type Database = {
             isOneToOne: true
             referencedRelation: "profiles"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "candidates_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: true
+            referencedRelation: "user_profile"
+            referencedColumns: ["profile_id"]
           },
         ]
       }
@@ -192,6 +218,13 @@ export type Database = {
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "companies_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "user_profile"
+            referencedColumns: ["profile_id"]
+          },
         ]
       }
       custom_themes: {
@@ -232,6 +265,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "custom_themes_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "user_profile"
+            referencedColumns: ["profile_id"]
           },
         ]
       }
@@ -336,6 +376,63 @@ export type Database = {
           },
         ]
       }
+      experiences: {
+        Row: {
+          achievements: string[] | null
+          company: string
+          created_at: string
+          description: string | null
+          end_date: string | null
+          id: string
+          logo_url: string | null
+          profile_id: string
+          role: string
+          start_date: string
+          updated_at: string
+        }
+        Insert: {
+          achievements?: string[] | null
+          company: string
+          created_at?: string
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          logo_url?: string | null
+          profile_id: string
+          role: string
+          start_date: string
+          updated_at?: string
+        }
+        Update: {
+          achievements?: string[] | null
+          company?: string
+          created_at?: string
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          logo_url?: string | null
+          profile_id?: string
+          role?: string
+          start_date?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "experiences_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "experiences_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "user_profile"
+            referencedColumns: ["profile_id"]
+          },
+        ]
+      }
       favorite_presentations: {
         Row: {
           created_at: string | null
@@ -369,6 +466,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "favorite_presentations_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "user_profile"
+            referencedColumns: ["profile_id"]
           },
         ]
       }
@@ -417,6 +521,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "generated_images_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "user_profile"
+            referencedColumns: ["profile_id"]
           },
         ]
       }
@@ -468,6 +579,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "job_applications_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "user_profile"
+            referencedColumns: ["profile_id"]
           },
         ]
       }
@@ -651,6 +769,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "organizers_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "user_profile"
+            referencedColumns: ["profile_id"]
           },
         ]
       }
@@ -959,6 +1084,13 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "presentations_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "user_profile"
+            referencedColumns: ["profile_id"]
+          },
+          {
             foreignKeyName: "presentations_template_id_fkey"
             columns: ["template_id"]
             isOneToOne: false
@@ -1074,6 +1206,13 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "registrations_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "user_profile"
+            referencedColumns: ["profile_id"]
+          },
+          {
             foreignKeyName: "registrations_ticket_id_fkey"
             columns: ["ticket_id"]
             isOneToOne: false
@@ -1118,6 +1257,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "saved_jobs_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "user_profile"
+            referencedColumns: ["profile_id"]
           },
         ]
       }
@@ -1200,44 +1346,80 @@ export type Database = {
       }
       startup_profiles: {
         Row: {
+          business_model: string | null
           company_name: string
+          cover_url: string | null
           created_at: string
           description: string | null
+          elevator_pitch: string | null
+          founded_year: number | null
+          funding_stage: string | null
           id: string
           industry: string | null
           logo_url: string | null
+          mrr: string | null
+          problem: string | null
           profile_id: string
+          solution: string | null
           stage: string | null
+          status: string | null
+          tagline: string | null
+          target_market: string | null
           team_size: number | null
           updated_at: string
+          user_count: string | null
           verified: boolean
           website_url: string | null
         }
         Insert: {
+          business_model?: string | null
           company_name: string
+          cover_url?: string | null
           created_at?: string
           description?: string | null
+          elevator_pitch?: string | null
+          founded_year?: number | null
+          funding_stage?: string | null
           id?: string
           industry?: string | null
           logo_url?: string | null
+          mrr?: string | null
+          problem?: string | null
           profile_id: string
+          solution?: string | null
           stage?: string | null
+          status?: string | null
+          tagline?: string | null
+          target_market?: string | null
           team_size?: number | null
           updated_at?: string
+          user_count?: string | null
           verified?: boolean
           website_url?: string | null
         }
         Update: {
+          business_model?: string | null
           company_name?: string
+          cover_url?: string | null
           created_at?: string
           description?: string | null
+          elevator_pitch?: string | null
+          founded_year?: number | null
+          funding_stage?: string | null
           id?: string
           industry?: string | null
           logo_url?: string | null
+          mrr?: string | null
+          problem?: string | null
           profile_id?: string
+          solution?: string | null
           stage?: string | null
+          status?: string | null
+          tagline?: string | null
+          target_market?: string | null
           team_size?: number | null
           updated_at?: string
+          user_count?: string | null
           verified?: boolean
           website_url?: string | null
         }
@@ -1248,6 +1430,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "startup_profiles_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "user_profile"
+            referencedColumns: ["profile_id"]
           },
         ]
       }
@@ -1358,6 +1547,13 @@ export type Database = {
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "venues_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "user_profile"
+            referencedColumns: ["profile_id"]
+          },
         ]
       }
       waitlist: {
@@ -1403,6 +1599,13 @@ export type Database = {
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "waitlist_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "user_profile"
+            referencedColumns: ["profile_id"]
+          },
         ]
       }
       wizard_sessions: {
@@ -1444,49 +1647,37 @@ export type Database = {
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "wizard_sessions_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "user_profile"
+            referencedColumns: ["profile_id"]
+          },
         ]
       }
     }
     Views: {
-      [_ in never]: never
+      user_profile: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          company: string | null
+          created_at: string | null
+          email: string | null
+          full_name: string | null
+          job_title: string | null
+          profile_id: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
-      citext: {
-        Args: { "": boolean } | { "": string } | { "": unknown }
-        Returns: string
-      }
-      citext_hash: {
-        Args: { "": string }
-        Returns: number
-      }
-      citextin: {
-        Args: { "": unknown }
-        Returns: string
-      }
-      citextout: {
-        Args: { "": string }
-        Returns: unknown
-      }
-      citextrecv: {
-        Args: { "": unknown }
-        Returns: string
-      }
-      citextsend: {
-        Args: { "": string }
-        Returns: string
-      }
-      count_deck_slides: {
-        Args: { deck_uuid: string }
-        Returns: number
-      }
-      current_profile_id: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
-      duplicate_presentation: {
-        Args: { source_id: string }
-        Returns: string
-      }
+      count_deck_slides: { Args: { deck_uuid: string }; Returns: number }
+      current_profile_id: { Args: never; Returns: string }
+      duplicate_presentation: { Args: { source_id: string }; Returns: string }
       get_application_count_by_status: {
         Args: { user_id: string }
         Returns: {
@@ -1504,10 +1695,7 @@ export type Database = {
           total_count: number
         }[]
       }
-      get_pitch_deck_with_slides: {
-        Args: { deck_uuid: string }
-        Returns: Json
-      }
+      get_pitch_deck_with_slides: { Args: { deck_uuid: string }; Returns: Json }
       get_presentation_stats: {
         Args: { user_id: string }
         Returns: {
@@ -1534,18 +1722,10 @@ export type Database = {
           updated_at: string
         }[]
       }
-      get_saved_jobs_count: {
-        Args: { user_id: string }
-        Returns: number
-      }
-      get_user_deck_count: {
-        Args: { user_uuid: string }
-        Returns: number
-      }
-      has_role: {
-        Args: { role_name: string }
-        Returns: boolean
-      }
+      get_profile_id: { Args: never; Returns: string }
+      get_saved_jobs_count: { Args: { user_id: string }; Returns: number }
+      get_user_deck_count: { Args: { user_uuid: string }; Returns: number }
+      has_role: { Args: { role_name: string }; Returns: boolean }
       is_owner: {
         Args: { owner_column?: string; record_id: string; table_name: string }
         Returns: boolean
