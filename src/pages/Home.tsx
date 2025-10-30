@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Rocket, Users, Gift, TrendingUp } from "lucide-react";
+import FashionHero from "@/components/FashionHero";
 
 const Home = () => {
   const stats = [
@@ -35,40 +36,8 @@ const Home = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="container mx-auto px-4 py-20 lg:py-32">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-block mb-4 px-4 py-2 bg-secondary rounded-full text-sm font-medium text-primary">
-            Welcome to Colombia's AI Hub
-          </div>
-          <h1 className="mb-6 font-bold text-balance">
-            Build. Connect. <span className="text-primary">Grow.</span>
-          </h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Join Medellin's most vibrant AI startup community. Get matched with resources, mentors, and exclusive perks powered by AI.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" asChild>
-              <Link to="/startup-profile">
-                Join the Community <ArrowRight className="ml-2" size={20} />
-              </Link>
-            </Button>
-            <Button size="lg" variant="outline" asChild>
-              <Link to="/perks">Explore Opportunities</Link>
-            </Button>
-          </div>
-        </div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-20 max-w-4xl mx-auto">
-          {stats.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="text-4xl font-bold text-primary mb-2">{stat.value}</div>
-              <div className="text-sm text-muted-foreground">{stat.label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* FashionOS Hero Section */}
+      <FashionHero />
 
       {/* Choose Your Path */}
       <section className="bg-primary text-primary-foreground py-20">
