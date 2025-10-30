@@ -32,11 +32,11 @@ const Events = () => {
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <section className="bg-secondary py-16">
+      <section className="bg-secondary py-12 md:py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
-            <h1 className="mb-4 text-primary">Events</h1>
-            <p className="text-lg text-muted-foreground">
+            <h1 className="mb-3 md:mb-4 text-primary text-3xl md:text-4xl lg:text-5xl">Events</h1>
+            <p className="text-base md:text-lg text-muted-foreground">
               Join our community events to learn, network, and grow in the world of artificial intelligence.
             </p>
           </div>
@@ -44,12 +44,12 @@ const Events = () => {
       </section>
 
       {/* Filters */}
-      <section className="container mx-auto px-4 py-8">
+      <section className="container mx-auto px-4 py-6 md:py-8">
         <FilterGroup filters={filters} activeFilter={activeFilter} onFilterChange={setActiveFilter} />
       </section>
 
       {/* Content Area */}
-      <section className="container mx-auto px-4 pb-16">
+      <section className="container mx-auto px-4 pb-12 md:pb-16">
         {/* Loading State */}
         {isLoading && (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

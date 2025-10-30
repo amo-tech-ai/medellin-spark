@@ -54,11 +54,11 @@ const Jobs = () => {
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <section className="bg-secondary py-16">
+      <section className="bg-secondary py-12 md:py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="mb-4">Job Board</h1>
-            <p className="text-lg text-muted-foreground">
+            <h1 className="mb-3 md:mb-4 text-3xl md:text-4xl lg:text-5xl">Job Board</h1>
+            <p className="text-base md:text-lg text-muted-foreground px-2">
               Find opportunities at AI startups and tech companies in Medellín
             </p>
           </div>
@@ -66,8 +66,8 @@ const Jobs = () => {
       </section>
 
       {/* Search & Filters */}
-      <section className="container mx-auto px-4 py-8">
-        <div className="flex flex-col gap-6">
+      <section className="container mx-auto px-4 py-6 md:py-8">
+        <div className="flex flex-col gap-4 md:gap-6">
           {/* Search */}
           <div className="relative max-w-md">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={20} />
@@ -86,31 +86,31 @@ const Jobs = () => {
       </section>
 
       {/* Jobs List */}
-      <section className="container mx-auto px-4 pb-16">
-        <div className="max-w-4xl space-y-4">
+      <section className="container mx-auto px-4 pb-12 md:pb-16">
+        <div className="max-w-4xl mx-auto space-y-4">
           {jobs.map((job) => (
             <div
               key={job.id}
-              className="bg-card border border-border rounded-xl p-6 shadow-card hover:shadow-glow hover:border-primary transition-smooth"
+              className="bg-card border border-border rounded-xl p-5 md:p-6 shadow-card hover:shadow-glow hover:border-primary transition-smooth"
             >
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <div className="flex flex-col gap-4">
                 {/* Content */}
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold mb-2">{job.title}</h3>
-                  <p className="text-muted-foreground mb-3">{job.company}</p>
+                  <h3 className="text-lg md:text-xl font-semibold mb-2">{job.title}</h3>
+                  <p className="text-muted-foreground mb-3 text-sm md:text-base">{job.company}</p>
 
                   {/* Details */}
-                  <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-3">
+                  <div className="flex flex-wrap gap-3 md:gap-4 text-xs md:text-sm text-muted-foreground mb-3">
                     <div className="flex items-center gap-1">
-                      <MapPin size={16} />
+                      <MapPin size={14} className="md:w-4 md:h-4" />
                       <span>{job.location}</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <Briefcase size={16} />
+                      <Briefcase size={14} className="md:w-4 md:h-4" />
                       <span>{job.type}</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <DollarSign size={16} />
+                      <DollarSign size={14} className="md:w-4 md:h-4" />
                       <span>{job.salary}</span>
                     </div>
                   </div>
@@ -125,7 +125,7 @@ const Jobs = () => {
                 </div>
 
                 {/* CTA */}
-                <Button className="md:w-auto w-full">Apply Now</Button>
+                <Button className="w-full sm:w-auto">Apply Now</Button>
               </div>
             </div>
           ))}

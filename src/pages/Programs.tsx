@@ -42,15 +42,15 @@ const Programs = () => {
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <section className="bg-background py-16">
+      <section className="bg-background py-12 md:py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="mb-4">Accelerator Programs</h1>
-            <p className="text-lg text-muted-foreground mb-4">
+            <h1 className="mb-3 md:mb-4 text-3xl md:text-4xl lg:text-5xl">Accelerator Programs</h1>
+            <p className="text-base md:text-lg text-muted-foreground mb-3 md:mb-4 px-2">
               Apply to programs designed for AI startups at every stage
             </p>
             <div className="flex items-center justify-center gap-2 text-muted-foreground">
-              <Rocket size={20} />
+              <Rocket size={18} className="md:w-5 md:h-5" />
               <span className="text-sm font-medium">3 active programs</span>
             </div>
           </div>
@@ -58,25 +58,25 @@ const Programs = () => {
       </section>
 
       {/* Filters */}
-      <section className="container mx-auto px-4 py-8">
+      <section className="container mx-auto px-4 py-6 md:py-8">
         <FilterGroup filters={filters} activeFilter={activeFilter} onFilterChange={setActiveFilter} />
       </section>
 
       {/* Programs List */}
-      <section className="container mx-auto px-4 pb-16">
-        <div className="max-w-4xl space-y-6">
+      <section className="container mx-auto px-4 pb-12 md:pb-16">
+        <div className="max-w-4xl mx-auto space-y-4 md:space-y-6">
           {programs.map((program) => (
             <div
               key={program.id}
-              className="bg-card border border-border rounded-xl p-8 shadow-card hover:shadow-glow hover:border-primary transition-smooth"
+              className="bg-card border border-border rounded-xl p-5 md:p-8 shadow-card hover:shadow-glow hover:border-primary transition-smooth"
             >
               {/* Header */}
-              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
+              <div className="flex flex-col gap-3 md:gap-4 mb-3 md:mb-4">
                 <div>
-                  <h3 className="text-2xl font-semibold mb-2">{program.name}</h3>
-                  <div className="flex items-center gap-3">
+                  <h3 className="text-xl md:text-2xl font-semibold mb-2">{program.name}</h3>
+                  <div className="flex flex-wrap items-center gap-2 md:gap-3">
                     <CategoryBadge label={program.stage} variant="default" />
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground">
                       <span className="w-2 h-2 bg-primary rounded-full"></span>
                       {program.timeline}
                     </div>
@@ -85,10 +85,10 @@ const Programs = () => {
               </div>
 
               {/* Description */}
-              <p className="text-muted-foreground mb-6">{program.description}</p>
+              <p className="text-sm md:text-base text-muted-foreground mb-5 md:mb-6">{program.description}</p>
 
               {/* CTA */}
-              <Button className="group">
+              <Button className="group w-full sm:w-auto">
                 Apply Now
                 <ExternalLink size={16} className="ml-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </Button>

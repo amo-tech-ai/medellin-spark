@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Rocket, Users, Gift, TrendingUp } from "lucide-react";
-import FashionHero from "@/components/FashionHero";
 
 const Home = () => {
   const stats = [
@@ -36,8 +35,45 @@ const Home = () => {
 
   return (
     <div className="min-h-screen">
-      {/* FashionOS Hero Section */}
-      <FashionHero />
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-primary via-primary to-primary-variant text-primary-foreground py-16 md:py-24 lg:py-32">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="inline-block mb-4 md:mb-6 px-4 py-2 bg-white/20 rounded-full text-xs md:text-sm font-medium">
+              Welcome to Colombia's AI Hub
+            </div>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight">
+              Build. Connect. <span className="text-accent">Grow.</span>
+            </h1>
+            <p className="text-base sm:text-lg md:text-xl mb-6 md:mb-8 opacity-90 max-w-2xl mx-auto px-4">
+              Join Medellín's most vibrant AI startup community. Get matched with resources, mentors, and exclusive perks powered by AI.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center mb-8 md:mb-12 px-4">
+              <Button size="lg" variant="secondary" asChild className="w-full sm:w-auto">
+                <Link to="/auth">
+                  Join the Community <ArrowRight className="ml-2" size={20} />
+                </Link>
+              </Button>
+              <Button size="lg" variant="outline" asChild className="w-full sm:w-auto bg-white/10 hover:bg-white/20 border-white/30">
+                <Link to="/events">
+                  Explore Opportunities
+                </Link>
+              </Button>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-8 max-w-3xl mx-auto px-4">
+              {stats.map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1 md:mb-2">{stat.value}</div>
+                  <div className="text-xs sm:text-sm opacity-80">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Choose Your Path */}
       <section className="bg-primary text-primary-foreground py-20">
